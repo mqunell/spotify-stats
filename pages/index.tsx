@@ -1,29 +1,51 @@
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
-import { getUsers } from '../lib/users';
+import axios from 'axios';
+import { getCookies } from 'cookies-next';
 
-export default function Home() {
+const Home = () => {
+	const cookies = getCookies();
+	const [accessToken, setAccessToken] = useState<string | undefined>();
+	const [userData, setUserData] = useState();
+
+	useEffect(() => {
+		const { accessToken, refreshToken } = cookies;
+
+		if (accessToken && refreshToken) {
+			setAccessToken(accessToken);
+			getUserData();
+		}
+	}, [cookies]);
+
+	const getUserData = async () => {
+		if (!accessToken) return;
+		try {
+			const res = await axios.post('/api/user', { accessToken });
+			const data = res.data;
+			console.log(data);
+			setUserData(data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
-		<div className="flex flex-col gap-2 p-8">
-			<Head>
-				<title>Next.js App</title>
-				<meta name="description" content="Next.js App" />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-
-			<HomeLink url="/demos/static-generation" text="Static Generation" />
-			<HomeLink url="/demos/server-side-rendering" text="Server-side Rendering" />
-			<HomeLink url="/demos/client-side-rendering" text="Client-side Rendering" />
-
-			<p>../lib/users: {getUsers().toString()}</p>
-		</div>
-	);
-}
-
-const HomeLink = ({ url, text }: { url: string; text: string }) => {
-	return (
-		<Link href={url}>
-			<a className="text-blue-500 hover:underline">{text}</a>
-		</Link>
+		<section className="flex flex-col items-start gap-2 p-4">
+			{!accessToken ? (
+				<a
+					href="/api/login"
+					className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-500"
+				>
+					Log in with Spotify
+				</a>
+			) : (
+				<div className="flex flex-col gap-2">
+					<span>{accessToken}</span>
+					<span>{JSON.stringify(userData)}</span>
+				</div>
+			)}
+		</section>
 	);
 };
+
+export default Home;
