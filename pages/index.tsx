@@ -17,6 +17,7 @@ type UserData = {
 const Home = () => {
 	const cookies = getCookies();
 	const [accessToken, setAccessToken] = useState<string | undefined>();
+	const [refreshToken, setRefreshToken] = useState<string | undefined>();
 	const [userData, setUserData] = useState<UserData>({
 		loading: false,
 		data: null,
@@ -28,6 +29,7 @@ const Home = () => {
 
 		if (accessToken && refreshToken) {
 			setAccessToken(accessToken);
+			setRefreshToken(refreshToken);
 			getUserData();
 		}
 	}, [cookies]);
@@ -72,6 +74,8 @@ const Home = () => {
 		return (
 			<>
 				<h1 className="text-xl">Hello, {userData.data?.display_name}</h1>
+				<p>Access: {accessToken}</p>
+				<p>Refresh: {refreshToken}</p>
 				<Playlists accessToken={accessToken} userId={userData.data?.id} />
 			</>
 		);
