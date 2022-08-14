@@ -7,13 +7,14 @@ const { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, STATE_KEY } = process.env;
 
 const url = 'https://accounts.spotify.com/api/token';
 
-const axiosData = (code: string) =>
-	stringify({
+const axiosData = (code: string) => {
+	return stringify({
 		code,
 		grant_type: 'authorization_code',
 		redirect_uri: REDIRECT_URI,
 		json: true,
 	});
+};
 
 const axiosConfig = {
 	headers: {
@@ -35,7 +36,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	deleteCookie(STATE_KEY, { req, res });
 
 	try {
-		const spotifyRes = await axios.post(url, axiosData, axiosConfig);
+		const spotifyRes = await axios.post(url, axiosData(code as string), axiosConfig);
 		const { access_token, refresh_token } = spotifyRes.data;
 
 		// Put the tokens and user data on res
