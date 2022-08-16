@@ -76,7 +76,7 @@ const Home = () => {
 				<h1 className="text-xl">Hello, {userData.data?.display_name}</h1>
 				<p>Access: {accessToken}</p>
 				<p>Refresh: {refreshToken}</p>
-				<Playlists accessToken={accessToken} userId={userData.data?.id} />
+				<Playlists accessToken={accessToken} />
 			</>
 		);
 	};

@@ -4,15 +4,21 @@ import { Playlist, Track } from '../pages/api/playlists';
 
 type Props = {
 	accessToken: string;
-	userId: string;
 };
 
-const Playlists = ({ accessToken, userId }: Props): JSX.Element => {
+const formatTime = (duration: number): string => {
+	const seconds = Math.round(duration / 1000);
+	const mm = Math.floor(seconds / 60).toString();
+	const ss = (seconds % 60).toString().padStart(2, '0');
+	return `${mm}:${ss}`;
+};
+
+const Playlists = ({ accessToken }: Props): JSX.Element => {
 	const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
 	const fetchPlaylists = async () => {
 		try {
-			const res = await axios.post('/api/playlists', { accessToken, userId });
+			const res = await axios.post('/api/playlists', { accessToken });
 			const data = res.data;
 			setPlaylists(data);
 		} catch (error) {
@@ -26,28 +32,36 @@ const Playlists = ({ accessToken, userId }: Props): JSX.Element => {
 	}, []);
 
 	return (
-		<div className="flex flex-col gap-4 divide-y">
+		<div className="grid max-w-6xl gap-x-4">
+			<p className="pl-1 font-bold">Track</p>
+			<p className="font-bold">Artist</p>
+			<p className="font-bold">Album</p>
+			<p className="pr-1 font-bold">Time</p>
 			{playlists
-				.sort((a, b) => (a.name < b.name ? -1 : 1))
+				.filter((playlist) => playlist.name.startsWith('20'))
+				.sort((a, b) => (a.name > b.name ? -1 : 1))
 				.map((playlist: Playlist) => (
-					<div key={playlist.name} className="p-4">
-						<a href={playlist.link} className="hover:text-blue-400">
-							{playlist.name}
-						</a>
-
-						<div className="grid grid-cols-4 gap-2 pl-2">
-							{playlist.tracks.map((track: Track) => (
-								<>
-									<p>{track.name}</p>
-									<p>{track.artists.map((artist) => artist.name)}</p>
-									<p>
-										{track.album.name} ({track.album.type})
-									</p>
-									<p>{track.duration / 1000}</p>
-								</>
-							))}
+					<>
+						<div className="col-span-4 flex justify-center rounded bg-slate-100 py-1">
+							<a href={playlist.link} className="text-lg hover:text-blue-400">
+								{playlist.name}
+							</a>
 						</div>
-					</div>
+
+						{playlist.tracks.map((track: Track) => (
+							<>
+								<p className="truncate pl-1">{track.name}</p>
+								<p className="truncate">
+									{track.artists.map((artist) => artist.name).join(', ')}
+								</p>
+								<p className="truncate">
+									{track.album.name}
+									{track.album.type !== 'album' && '*'}
+								</p>
+								<p className="pr-2">{formatTime(track.duration)}</p>
+							</>
+						))}
+					</>
 				))}
 		</div>
 	);

@@ -3,7 +3,7 @@ import { setCookie } from 'cookies-next';
 import { stringify } from 'querystring';
 
 const { CLIENT_ID, REDIRECT_URI, STATE_KEY } = process.env;
-const scope = 'user-read-private';
+const scope = 'playlist-read-private';
 
 /**
  * Generates a random string containing numbers and letters

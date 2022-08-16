@@ -29,8 +29,7 @@ export type Track = {
 	};
 };
 
-const playlistsUrl = (userId: string) =>
-	`https://api.spotify.com/v1/users/${userId}/playlists`;
+const playlistsUrl = 'https://api.spotify.com/v1/me/playlists?limit=50';
 
 const axiosConfig = (accessToken: string) => ({
 	headers: { Authorization: 'Bearer ' + accessToken },
@@ -68,10 +67,15 @@ const getTracks = async (accessToken: string, tracksUrl: string) => {
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { accessToken, userId } = req.body;
+	const playlists: Playlist[] = JSON.parse(
+		fs.readFileSync('formattedPlaylists.json').toString()
+	);
+	res.status(200).json(playlists);
+
+	/* const { accessToken } = req.body;
 
 	try {
-		const axiosRes = await axios.get(playlistsUrl(userId), axiosConfig(accessToken));
+		const axiosRes = await axios.get(playlistsUrl, axiosConfig(accessToken));
 		const data: ApiPlaylistsMeta = axiosRes.data;
 
 		const formattedPlaylistsPromises = data.items.map(async (item: ApiPlaylist) => ({
@@ -91,7 +95,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	} catch (error) {
 		console.error('handler', error);
 		return [];
-	}
+	} */
 };
 
 export default handler;
