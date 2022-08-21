@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 // import Head from 'next/head';
 import axios from 'axios';
 import { getCookies } from 'cookies-next';
-import Playlists from '../components/playlists';
+import Playlists from '@/components/playlists';
 import Link from 'next/link';
 
 type UserData = {
@@ -16,6 +16,7 @@ type UserData = {
 
 const Home = () => {
 	const cookies = getCookies();
+
 	const [accessToken, setAccessToken] = useState<string | undefined>();
 	const [refreshToken, setRefreshToken] = useState<string | undefined>();
 	const [userData, setUserData] = useState<UserData>({

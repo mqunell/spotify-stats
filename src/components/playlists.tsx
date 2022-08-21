@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Playlist, Track } from '../pages/api/playlists';
+import { Playlist, Track } from '@/pages/api/playlists';
 
 type Props = {
 	accessToken: string;
@@ -19,8 +19,11 @@ const Playlists = ({ accessToken }: Props): JSX.Element => {
 	const fetchPlaylists = async () => {
 		try {
 			const res = await axios.post('/api/playlists', { accessToken });
-			const data = res.data;
-			setPlaylists(data);
+			const playlists: Playlist[] = res.data
+				.filter((playlist: Playlist) => playlist.name.startsWith('20'))
+				.sort((a: Playlist, b: Playlist) => (a.name > b.name ? -1 : 1));
+
+			setPlaylists(playlists);
 		} catch (error) {
 			console.log(error);
 			setPlaylists([]);
@@ -37,32 +40,29 @@ const Playlists = ({ accessToken }: Props): JSX.Element => {
 			<p className="font-bold">Artist</p>
 			<p className="font-bold">Album</p>
 			<p className="pr-1 font-bold">Time</p>
-			{playlists
-				.filter((playlist) => playlist.name.startsWith('20'))
-				.sort((a, b) => (a.name > b.name ? -1 : 1))
-				.map((playlist: Playlist) => (
-					<>
-						<div className="col-span-4 flex justify-center rounded bg-slate-100 py-1">
-							<a href={playlist.link} className="text-lg hover:text-blue-400">
-								{playlist.name}
-							</a>
-						</div>
+			{playlists.map((playlist: Playlist) => (
+				<>
+					<div className="col-span-4 flex justify-center rounded bg-slate-100 py-1">
+						<a href={playlist.link} className="text-lg hover:text-blue-400">
+							{playlist.name}
+						</a>
+					</div>
 
-						{playlist.tracks.map((track: Track) => (
-							<>
-								<p className="truncate pl-1">{track.name}</p>
-								<p className="truncate">
-									{track.artists.map((artist) => artist.name).join(', ')}
-								</p>
-								<p className="truncate">
-									{track.album.name}
-									{track.album.type !== 'album' && '*'}
-								</p>
-								<p className="pr-2">{formatTime(track.duration)}</p>
-							</>
-						))}
-					</>
-				))}
+					{playlist.tracks.map((track: Track) => (
+						<>
+							<p className="truncate pl-1">{track.name}</p>
+							<p className="truncate">
+								{track.artists.map((artist) => artist.name).join(', ')}
+							</p>
+							<p className="truncate">
+								{track.album.name}
+								{track.album.type !== 'album' && '*'}
+							</p>
+							<p className="pr-2">{formatTime(track.duration)}</p>
+						</>
+					))}
+				</>
+			))}
 		</div>
 	);
 };
