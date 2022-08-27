@@ -20,7 +20,7 @@ const Playlists = ({ accessToken }: Props): JSX.Element => {
 		try {
 			const res = await axios.post('/api/playlists', { accessToken });
 			const playlists: Playlist[] = res.data
-				.filter((playlist: Playlist) => playlist.name.startsWith('20'))
+				.filter(({ name }: Playlist) => name.startsWith('20') && name !== '2010s Mix')
 				.sort((a: Playlist, b: Playlist) => (a.name > b.name ? -1 : 1));
 
 			setPlaylists(playlists);
