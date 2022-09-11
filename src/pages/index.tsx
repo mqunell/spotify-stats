@@ -15,7 +15,13 @@ type UserData = {
 };
 
 const Home = () => {
-	const cookies = getCookies();
+	return (
+		<section className="flex flex-col items-start gap-2 p-4">
+			<Playlists accessToken="" />
+		</section>
+	);
+
+	/* const cookies = getCookies();
 
 	const [accessToken, setAccessToken] = useState<string | undefined>();
 	const [refreshToken, setRefreshToken] = useState<string | undefined>();
@@ -82,7 +88,7 @@ const Home = () => {
 		);
 	};
 
-	return <section className="flex flex-col items-start gap-2 p-4">{getOutput()}</section>;
+	return <section className="flex flex-col items-start gap-2 p-4">{getOutput()}</section>; */
 };
 
 export default Home;

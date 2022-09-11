@@ -67,7 +67,12 @@ const getTracks = async (accessToken: string, tracksUrl: string) => {
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { accessToken } = req.body;
+	const playlists: Playlist[] = JSON.parse(
+		fs.readFileSync('formattedPlaylists.json').toString()
+	);
+	res.status(200).json(playlists);
+
+	/* const { accessToken } = req.body;
 
 	try {
 		const axiosRes = await axios.get(playlistsUrl, axiosConfig(accessToken));
@@ -90,7 +95,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	} catch (error) {
 		console.error('handler', error);
 		return [];
-	}
+	} */
 };
 
 export default handler;
