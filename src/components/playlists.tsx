@@ -79,7 +79,7 @@ const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
 		<section className="flex flex-col gap-4">
 			<div>
 				<input
-					className="mr-auto rounded border border-slate-300 py-1 px-3"
+					className="rounded border border-slate-300 py-1 px-3"
 					type="text"
 					placeholder="Song, Artist, or Album"
 					onChange={(e) => setFilter(e.target.value)}

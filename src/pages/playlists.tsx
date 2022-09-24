@@ -8,6 +8,12 @@ import { GetServerSideProps } from 'next';
 import classNames from 'classnames';
 import { Playlist, Track } from '@/pages/api/playlists';
 import { getPlaylists } from '@/lib/playlists';
+import {
+	ArtistCount,
+	getMostCommonArtists,
+	getPlaylistDurations,
+	ShortestLongest,
+} from '@/lib/stats';
 
 interface GridCellProps {
 	className?: string;
@@ -17,6 +23,8 @@ interface GridCellProps {
 
 interface PlaylistProps {
 	playlists: Playlist[];
+	playlistDurations: ShortestLongest;
+	mostCommonArtists: ArtistCount[];
 }
 
 const filterText = (text: string, filter: string): Boolean =>
@@ -44,10 +52,18 @@ const GridCell = ({ className, filter, text }: GridCellProps) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
 	const playlists = getPlaylists();
-	return { props: { playlists } };
+	const playlistDurations = getPlaylistDurations(playlists);
+	const mostCommonArtists = getMostCommonArtists(playlists);
+	console.log('mca', mostCommonArtists);
+
+	return { props: { playlists, playlistDurations, mostCommonArtists } };
 };
 
-const Playlists = ({ playlists }: PlaylistProps): JSX.Element => {
+const Playlists = ({
+	playlists,
+	playlistDurations,
+	mostCommonArtists,
+}: PlaylistProps): JSX.Element => {
 	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([]);
 	const [filter, setFilter] = useState('');
 
@@ -64,13 +80,38 @@ const Playlists = ({ playlists }: PlaylistProps): JSX.Element => {
 
 	return (
 		<section className="flex flex-col gap-4 p-4">
-			<div>
+			<div className="flex items-center gap-4">
 				<input
 					className="mr-auto rounded border border-slate-300 py-1 px-3"
 					type="text"
 					placeholder="Song, Artist, or Album"
 					onChange={(e) => setFilter(e.target.value)}
 				/>
+
+				<p>
+					{displayPlaylists.length !== playlists.length && displayPlaylists.length + '/'}
+					{playlists.length} Playlists
+				</p>
+				{mostCommonArtists[0].count > 1 && (
+					<p>
+						Most common artist{mostCommonArtists.length ? 's' : ''}:{' '}
+						{mostCommonArtists.length
+							? mostCommonArtists
+									.map((mca) => mca.artist)
+									.sort()
+									.join(', ')
+							: mostCommonArtists[0].artist}{' '}
+						({mostCommonArtists[0].count})
+					</p>
+				)}
+				<p>
+					Shortest playlist: {playlistDurations.shortest.name} (
+					{formatTime(playlistDurations.shortest.duration)})
+				</p>
+				<p>
+					Longest playlist: {playlistDurations.longest.name} (
+					{formatTime(playlistDurations.longest.duration)})
+				</p>
 			</div>
 
 			<div className="grid max-w-6xl gap-x-4">

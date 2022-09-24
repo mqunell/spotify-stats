@@ -18,7 +18,7 @@ export interface ArtistCount {
 /**
  * Get the shortest and longest playlists
  */
-export const playlistDurations = (playlists: Playlist[]): ShortestLongest => {
+export const getPlaylistDurations = (playlists: Playlist[]): ShortestLongest => {
 	if (!playlists || !playlists.length) {
 		return null;
 	}
@@ -39,7 +39,7 @@ export const playlistDurations = (playlists: Playlist[]): ShortestLongest => {
 /**
  * Count the primary artist that shows up in the most unique playlists
  */
-export const mostCommonArtists = (playlists: Playlist[]): ArtistCount[] => {
+export const getMostCommonArtists = (playlists: Playlist[]): ArtistCount[] => {
 	if (!playlists || !playlists.length) {
 		return [];
 	}
@@ -49,7 +49,10 @@ export const mostCommonArtists = (playlists: Playlist[]): ArtistCount[] => {
 	playlists.forEach((playlist: Playlist) => {
 		// Build set of artists in the playlist
 		const uniqueArtists = new Set();
-		playlist.tracks.forEach((track: Track) => uniqueArtists.add(track.artists[0].name));
+		// playlist.tracks.forEach((track: Track) => uniqueArtists.add(track.artists[0].name));
+		playlist.tracks.forEach((track: Track) =>
+			track.artists.forEach((artist) => uniqueArtists.add(artist.name))
+		);
 
 		// Initialize/increment their counts
 		uniqueArtists.forEach((artist: string) => {

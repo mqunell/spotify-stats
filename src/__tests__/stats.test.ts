@@ -1,14 +1,14 @@
-import { ArtistCount, mostCommonArtists, playlistDurations } from '@/lib/stats';
+import { ArtistCount, getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
 import { Playlist } from '@/pages/api/playlists';
 
 describe('Stats tests', () => {
 	describe('playlistDurations', () => {
 		it('handles an empty array', () => {
-			expect(playlistDurations([])).toEqual(null);
+			expect(getPlaylistDurations([])).toEqual(null);
 		});
 
 		it('handles a single playlist', () => {
-			expect(playlistDurations([mockPlaylists[0]])).toEqual({
+			expect(getPlaylistDurations([mockPlaylists[0]])).toEqual({
 				shortest: { name: 'Mock 0', duration: 1631215 },
 				longest: { name: 'Mock 0', duration: 1631215 },
 			});
@@ -16,13 +16,13 @@ describe('Stats tests', () => {
 
 		it('finds the shortest playlist', () => {
 			let playlists = mockPlaylists;
-			expect(playlistDurations(playlists).shortest).toEqual({
+			expect(getPlaylistDurations(playlists).shortest).toEqual({
 				name: 'Mock 2',
 				duration: 1303683,
 			});
 
 			playlists = [mockPlaylists[0], mockPlaylists[1]];
-			expect(playlistDurations(playlists).shortest).toEqual({
+			expect(getPlaylistDurations(playlists).shortest).toEqual({
 				name: 'Mock 0',
 				duration: 1631215,
 			});
@@ -30,13 +30,13 @@ describe('Stats tests', () => {
 
 		it('finds the longest playlist', () => {
 			let playlists = mockPlaylists;
-			expect(playlistDurations(playlists).longest).toEqual({
+			expect(getPlaylistDurations(playlists).longest).toEqual({
 				name: 'Mock 1',
 				duration: 1658299,
 			});
 
 			playlists = [mockPlaylists[2], mockPlaylists[3]];
-			expect(playlistDurations([mockPlaylists[2], mockPlaylists[3]]).longest).toEqual({
+			expect(getPlaylistDurations([mockPlaylists[2], mockPlaylists[3]]).longest).toEqual({
 				name: 'Mock 3',
 				duration: 1568293,
 			});
@@ -45,22 +45,24 @@ describe('Stats tests', () => {
 
 	describe('mostCommonArtist', () => {
 		it('handles an empty array', () => {
-			expect(mostCommonArtists([])).toEqual([]);
+			expect(getMostCommonArtists([])).toEqual([]);
 		});
 
 		it('counts the most common artist(s) properly', () => {
 			let playlists = mockPlaylists;
-			expect(mostCommonArtists(playlists)).toEqual([{ artist: 'Architects', count: 3 }]);
+			expect(getMostCommonArtists(playlists)).toEqual([
+				{ artist: 'Architects', count: 3 },
+			]);
 
 			playlists = mockPlaylists.slice(1);
-			expect(mostCommonArtists(playlists)).toEqual([
+			expect(getMostCommonArtists(playlists)).toEqual([
 				{ artist: 'Architects', count: 2 },
 				{ artist: 'Imminence', count: 2 },
 				{ artist: 'Spiritbox', count: 2 },
 			]);
 
 			playlists = [mockPlaylists[1]];
-			const artistCounts = mostCommonArtists(playlists);
+			const artistCounts = getMostCommonArtists(playlists);
 			artistCounts.forEach((artistCount: ArtistCount) => {
 				expect(artistCount.count).toEqual(1);
 			});
