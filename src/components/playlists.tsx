@@ -13,6 +13,14 @@ interface PlaylistsProps {
 	accessToken: string;
 }
 
+const filterText = (text: string, filter: string): Boolean =>
+	text.toLowerCase().includes(filter.toLowerCase());
+
+const filterTrack = ({ name, artists, album }: Track, filter: string): Boolean =>
+	filterText(name, filter) ||
+	filterText(artists.map((artist) => artist.name).join(''), filter) ||
+	filterText(album.name, filter);
+
 const formatTime = (duration: number): string => {
 	const seconds = Math.round(duration / 1000);
 	const mm = Math.floor(seconds / 60).toString();
@@ -20,15 +28,13 @@ const formatTime = (duration: number): string => {
 	return `${mm}:${ss}`;
 };
 
-const GridCell = ({ className, filter, text }: GridCellProps) => (
-	<p
-		className={classNames(className, 'truncate', {
-			'bg-yellow-100': filter.length ? text.includes(filter) : false,
-		})}
-	>
-		{text}
-	</p>
-);
+const GridCell = ({ className, filter, text }: GridCellProps) => {
+	const classes = classNames(className, 'truncate', {
+		'bg-yellow-100': filter.length && filterText(text, filter),
+	});
+
+	return <p className={classes}>{text}</p>;
+};
 
 const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
 	const [playlists, setPlaylists] = useState<Playlist[]>([]);
@@ -38,9 +44,7 @@ const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
 	const fetchPlaylists = async () => {
 		try {
 			const res = await axios.post('/api/playlists', { accessToken });
-			const playlists: Playlist[] = res.data
-				.filter(({ name }: Playlist) => name.startsWith('20') && name !== '2010s Mix')
-				.sort((a: Playlist, b: Playlist) => (a.name > b.name ? -1 : 1));
+			const playlists: Playlist[] = res.data;
 
 			setPlaylists(playlists);
 			setDisplayPlaylists(playlists);
@@ -51,31 +55,17 @@ const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
 		}
 	};
 
-	const includesFilter = (str: string) =>
-		str.toLowerCase().includes(filter.toLowerCase());
-
-	const filterName = ({ name }: Track) => includesFilter(name);
-
-	const filterArtists = ({ artists }: Track) =>
-		includesFilter(artists.map((artist) => artist.name).join(''));
-
-	const filterAlbum = ({ album }: Track) => includesFilter(album.name);
-
 	useEffect(() => {
 		fetchPlaylists();
 	}, []);
 
 	useEffect(() => {
-		const filtered = filter.length
-			? displayPlaylists
-					.map((playlist: Playlist) => ({
-						...playlist,
-						tracks: playlist.tracks.filter(
-							(track) => filterName(track) || filterArtists(track) || filterAlbum(track)
-						),
-					}))
-					.filter(({ tracks }) => tracks.length)
-			: playlists;
+		const filtered = playlists
+			.map((playlist: Playlist) => ({
+				...playlist,
+				tracks: playlist.tracks.filter((track) => filterTrack(track, filter)),
+			}))
+			.filter(({ tracks }) => tracks.length);
 
 		setDisplayPlaylists(filtered);
 	}, [filter]);
@@ -113,7 +103,7 @@ const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
 								/>
 								<GridCell
 									filter={filter}
-									text={`${track.album.name}${track.album.type !== 'album' && '*'}`}
+									text={`${track.album.name}${track.album.type !== 'album' ? '*' : ''}`}
 								/>
 								<GridCell
 									className="pr-1"

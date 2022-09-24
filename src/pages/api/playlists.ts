@@ -69,7 +69,9 @@ const getTracks = async (accessToken: string, tracksUrl: string) => {
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const playlists: Playlist[] = JSON.parse(
 		fs.readFileSync('formattedPlaylists.json').toString()
-	);
+	)
+		.filter(({ name }: Playlist) => name.startsWith('20') && name !== '2010s Mix')
+		.sort((a: Playlist, b: Playlist) => (a.name > b.name ? -1 : 1));
 	res.status(200).json(playlists);
 
 	/* const { accessToken } = req.body;
