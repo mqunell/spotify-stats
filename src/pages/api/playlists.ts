@@ -66,15 +66,11 @@ const getTracks = async (accessToken: string, tracksUrl: string) => {
 	}
 };
 
+/**
+ * Retrieve data from Spotify, format and write it to JSON, and return (for API)
+ */
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const playlists: Playlist[] = JSON.parse(
-		fs.readFileSync('formattedPlaylists.json').toString()
-	)
-		.filter(({ name }: Playlist) => name.startsWith('20') && name !== '2010s Mix')
-		.sort((a: Playlist, b: Playlist) => (a.name > b.name ? -1 : 1));
-	res.status(200).json(playlists);
-
-	/* const { accessToken } = req.body;
+	const { accessToken } = req.body;
 
 	try {
 		const axiosRes = await axios.get(playlistsUrl, axiosConfig(accessToken));
@@ -88,16 +84,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
 		const formattedPlaylists: Playlist[] = await Promise.all(formattedPlaylistsPromises);
 
-		fs.writeFileSync(
+		/* fs.writeFileSync(
 			'formattedPlaylists.json',
 			JSON.stringify(formattedPlaylists, null, '\t')
-		);
+		); */
 
 		res.status(200).json(formattedPlaylists);
 	} catch (error) {
 		console.error('handler', error);
 		return [];
-	} */
+	}
 };
 
 export default handler;

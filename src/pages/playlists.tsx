@@ -1,12 +1,13 @@
 /**
- * Component version of displaying Playlists.
- * Fetches data from an API that goes through the Spotify flow.
+ * Page version of displaying Playlists.
+ * Uses SSG to read the playlists from JSON.
  */
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Playlist, Track } from '@/pages/api/playlists';
+import { GetServerSideProps } from 'next';
 import classNames from 'classnames';
+import { Playlist, Track } from '@/pages/api/playlists';
+import { getPlaylists } from '@/lib/playlists';
 
 interface GridCellProps {
 	className?: string;
@@ -14,8 +15,8 @@ interface GridCellProps {
 	text: string;
 }
 
-interface PlaylistsProps {
-	accessToken: string;
+interface PlaylistProps {
+	playlists: Playlist[];
 }
 
 const filterText = (text: string, filter: string): Boolean =>
@@ -41,28 +42,14 @@ const GridCell = ({ className, filter, text }: GridCellProps) => {
 	return <p className={classes}>{text}</p>;
 };
 
-const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
-	const [playlists, setPlaylists] = useState<Playlist[]>([]);
+export const getServerSideProps: GetServerSideProps = async () => {
+	const playlists = getPlaylists();
+	return { props: { playlists } };
+};
+
+const Playlists = ({ playlists }: PlaylistProps): JSX.Element => {
 	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([]);
 	const [filter, setFilter] = useState('');
-
-	const fetchPlaylists = async () => {
-		try {
-			const res = await axios.post('/api/playlists', { accessToken });
-			const playlists: Playlist[] = res.data;
-
-			setPlaylists(playlists);
-			setDisplayPlaylists(playlists);
-		} catch (error) {
-			console.log(error);
-			setPlaylists([]);
-			setDisplayPlaylists([]);
-		}
-	};
-
-	useEffect(() => {
-		fetchPlaylists();
-	}, []);
 
 	useEffect(() => {
 		const filtered = playlists
@@ -76,7 +63,7 @@ const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
 	}, [filter]);
 
 	return (
-		<section className="flex flex-col gap-4">
+		<section className="flex flex-col gap-4 p-4">
 			<div>
 				<input
 					className="mr-auto rounded border border-slate-300 py-1 px-3"
