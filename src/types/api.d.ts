@@ -4,7 +4,7 @@
 
 // /users/{user_id}/playlists
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/get-list-users-playlists
-export type ApiPlaylistsMeta = {
+type ApiPlaylistsMeta = {
 	href: string;
 	items: ApiPlaylist[];
 	limit: number; // [1, 50]; default 20
@@ -16,7 +16,7 @@ export type ApiPlaylistsMeta = {
 
 // /playlists/{playlist_id}
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
-export type ApiPlaylist = {
+type ApiPlaylist = {
 	description: string | null;
 	external_urls: {
 		spotify: string;
@@ -38,7 +38,7 @@ export type ApiPlaylist = {
 	uri: string;
 };
 
-export type ApiPlaylistTracksMeta = {
+type ApiPlaylistTracksMeta = {
 	href: string;
 	items: ApiPlaylistTrack[];
 	limit: number;
@@ -48,7 +48,7 @@ export type ApiPlaylistTracksMeta = {
 	total: number;
 };
 
-export type ApiPlaylistTrack = {
+type ApiPlaylistTrack = {
 	track: {
 		album: {
 			album_type: string;

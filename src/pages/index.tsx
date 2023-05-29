@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 // import Head from 'next/head';
 import axios from 'axios';
 import { getCookies } from 'cookies-next';
-import Playlists from '@/components/playlists';
+import Playlists from '@/components/FetchWrapper';
 import Link from 'next/link';
 
 type UserData = {
@@ -43,7 +43,6 @@ const Home = () => {
 		try {
 			const res = await axios.post('/api/user', { accessToken });
 			const data = res.data;
-			console.log(data);
 			setUserData((prev) => ({ ...prev, data }));
 		} catch (error) {
 			setUserData((prev) => ({ ...prev, error }));

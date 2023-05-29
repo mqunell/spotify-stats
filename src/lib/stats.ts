@@ -1,20 +1,3 @@
-import { Playlist, Track } from '@/pages/api/playlists';
-
-interface PlaylistDuration {
-	name: string;
-	duration: number; // ms
-}
-
-export interface ShortestLongest {
-	shortest: PlaylistDuration;
-	longest: PlaylistDuration;
-}
-
-export interface ArtistCount {
-	artist: string;
-	count: number;
-}
-
 /**
  * Get the shortest and longest playlists
  */

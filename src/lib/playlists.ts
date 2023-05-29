@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { Playlist } from '@/pages/api/playlists';
 
 /**
  * Read the Playlists from JSON (for SSR/SSG)

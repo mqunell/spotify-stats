@@ -1,33 +1,6 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
-import {
-	ApiPlaylist,
-	ApiPlaylistsMeta,
-	ApiPlaylistTrack,
-	ApiPlaylistTracksMeta,
-} from '../../lib/apiTypes';
-
-export type Playlist = {
-	name: string;
-	link: string;
-	tracks: Track[];
-};
-
-export type Track = {
-	name: string;
-	duration: number; // ms
-	link: string;
-	artists: {
-		name: string;
-		link: string;
-	}[];
-	album: {
-		name: string;
-		link: string;
-		type: string;
-	};
-};
 
 const playlistsUrl = 'https://api.spotify.com/v1/me/playlists?limit=50';
 

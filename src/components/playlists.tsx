@@ -1,21 +1,15 @@
-/**
- * Component version of displaying Playlists.
- * Fetches data from an API that goes through the Spotify flow.
- */
-
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Playlist, Track } from '@/pages/api/playlists';
+import { useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
+import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
+
+interface Props {
+	playlists: Playlist[];
+}
 
 interface GridCellProps {
 	className?: string;
 	filter: string;
 	text: string;
-}
-
-interface PlaylistsProps {
-	accessToken: string;
 }
 
 const filterText = (text: string, filter: string): Boolean =>
@@ -41,28 +35,12 @@ const GridCell = ({ className, filter, text }: GridCellProps) => {
 	return <p className={classes}>{text}</p>;
 };
 
-const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
-	const [playlists, setPlaylists] = useState<Playlist[]>([]);
+const Playlists = ({ playlists }: Props): JSX.Element => {
 	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([]);
 	const [filter, setFilter] = useState('');
 
-	const fetchPlaylists = async () => {
-		try {
-			const res = await axios.post('/api/playlists', { accessToken });
-			const playlists: Playlist[] = res.data;
-
-			setPlaylists(playlists);
-			setDisplayPlaylists(playlists);
-		} catch (error) {
-			console.log(error);
-			setPlaylists([]);
-			setDisplayPlaylists([]);
-		}
-	};
-
-	useEffect(() => {
-		fetchPlaylists();
-	}, []);
+	const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists]);
+	const mostCommonArtists = useMemo(() => getMostCommonArtists(playlists), [playlists]);
 
 	useEffect(() => {
 		const filtered = playlists
@@ -73,17 +51,48 @@ const Playlists = ({ accessToken }: PlaylistsProps): JSX.Element => {
 			.filter(({ tracks }) => tracks.length);
 
 		setDisplayPlaylists(filtered);
-	}, [filter]);
+	}, [playlists, filter]);
+
+	if (!playlists.length) return <p>Loading...</p>;
 
 	return (
-		<section className="flex flex-col gap-4">
-			<div>
+		<section className="flex flex-col gap-4 p-4">
+			<div className="flex items-center gap-4">
 				<input
-					className="rounded border border-slate-300 py-1 px-3"
+					className="mr-auto rounded border border-slate-300 py-1 px-3"
 					type="text"
 					placeholder="Song, Artist, or Album"
 					onChange={(e) => setFilter(e.target.value)}
 				/>
+
+				<p>
+					{displayPlaylists.length !== playlists.length && displayPlaylists.length + '/'}
+					{playlists.length} Playlists
+				</p>
+				{mostCommonArtists.length && mostCommonArtists[0].count > 1 && (
+					<p>
+						Most common artist{mostCommonArtists.length ? 's' : ''}:{' '}
+						{mostCommonArtists.length
+							? mostCommonArtists
+									.map((mca) => mca.artist)
+									.sort()
+									.join(', ')
+							: mostCommonArtists[0].artist}{' '}
+						({mostCommonArtists[0].count})
+					</p>
+				)}
+				{playlistDurations && (
+					<>
+						<p>
+							Shortest playlist: {playlistDurations.shortest.name} (
+							{formatTime(playlistDurations.shortest.duration)})
+						</p>
+						<p>
+							Longest playlist: {playlistDurations.longest.name} (
+							{formatTime(playlistDurations.longest.duration)})
+						</p>
+					</>
+				)}
 			</div>
 
 			<div className="grid max-w-6xl gap-x-4">
