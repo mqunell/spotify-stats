@@ -1,5 +1,4 @@
-import { ArtistCount, getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
-import { Playlist } from '@/pages/api/playlists';
+import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
 
 describe('Stats tests', () => {
 	describe('playlistDurations', () => {

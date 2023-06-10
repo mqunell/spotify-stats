@@ -1,5 +1,5 @@
+import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
 
 const playlistsUrl = 'https://api.spotify.com/v1/me/playlists?limit=50';
@@ -42,8 +42,9 @@ const getTracks = async (accessToken: string, tracksUrl: string) => {
 /**
  * Retrieve data from Spotify, format and write it to JSON, and return (for API)
  */
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-	const { accessToken } = req.body;
+export const POST = async (req: Request) => {
+	const body = await req.json();
+	const { accessToken } = body;
 
 	try {
 		const axiosRes = await axios.get(playlistsUrl, axiosConfig(accessToken));
@@ -62,11 +63,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			JSON.stringify(formattedPlaylists, null, '\t')
 		); */
 
-		res.status(200).json(formattedPlaylists);
+		return NextResponse.json(formattedPlaylists);
 	} catch (error) {
 		console.error('handler', error);
 		return [];
 	}
 };
-
-export default handler;

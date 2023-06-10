@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
 import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
@@ -59,7 +61,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 		<section className="flex flex-col gap-4 p-4">
 			<div className="flex items-center gap-4">
 				<input
-					className="mr-auto rounded border border-slate-300 py-1 px-3"
+					className="mr-auto rounded border border-slate-300 px-3 py-1"
 					type="text"
 					placeholder="Song, Artist, or Album"
 					onChange={(e) => setFilter(e.target.value)}

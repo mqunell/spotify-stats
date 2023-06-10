@@ -16,7 +16,7 @@ const FetchWrapper = ({ accessToken }: Props): JSX.Element => {
 
 			setPlaylists(playlists);
 		} catch (error) {
-			console.log(error);
+			console.log('FetchWrapper fetchPlaylists error');
 			setPlaylists([]);
 		}
 	};
