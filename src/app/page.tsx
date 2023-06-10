@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 // import Head from 'next/head';
 import axios from 'axios';
@@ -10,7 +12,7 @@ type UserData = {
 	data: {
 		display_name: string;
 		id: string;
-	};
+	} | null;
 	error: string;
 };
 
@@ -58,10 +60,11 @@ const Home = () => {
 				<>
 					<h1 className="text-xl">Music Time 🎸 🥁</h1>
 					<p>Authenticate with Spotify for the Full Experience™️</p>
-					<Link href="/api/login">
-						<a className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-500">
-							Log in with Spotify 🤙
-						</a>
+					<Link
+						href="/api/login"
+						className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-500"
+					>
+						Log in with Spotify 🤙
 					</Link>
 				</>
 			);
