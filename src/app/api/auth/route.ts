@@ -1,9 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { setCookie } from 'cookies-next';
+import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { stringify } from 'querystring';
 
-const { CLIENT_ID, REDIRECT_URI, STATE_KEY } = process.env;
-const scope = 'playlist-read-private';
+const { CLIENT_ID, STATE_KEY } = process.env;
 
 /**
  * Generates a random string containing numbers and letters
@@ -21,21 +20,19 @@ const generateRandomString = (length: number): string => {
 };
 
 // Create the auth request and redirect the user
-const handler = (req: NextApiRequest, res: NextApiResponse): void => {
+export const GET = async (): Promise<NextResponse> => {
 	const state = generateRandomString(16);
 
-	setCookie(STATE_KEY, state, { req, res });
+	cookies().set(STATE_KEY as string, state);
 
-	res.redirect(
+	return NextResponse.redirect(
 		'https://accounts.spotify.com/authorize?' +
 			stringify({
 				response_type: 'code',
 				client_id: CLIENT_ID,
-				scope,
-				redirect_uri: REDIRECT_URI,
+				scope: 'playlist-read-private',
+				redirect_uri: 'http://localhost:3000/api/authCallback',
 				state,
 			})
 	);
 };
-
-export default handler;
