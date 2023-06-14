@@ -18,6 +18,7 @@ export const GET = async (req: NextRequest) => {
 		return NextResponse.redirect(baseUrl);
 	}
 
+	// Delete the cookie
 	cookies().set(STATE_KEY as string, '', { maxAge: 0 });
 
 	try {
@@ -38,8 +39,8 @@ export const GET = async (req: NextRequest) => {
 		);
 		const { access_token, refresh_token } = spotifyRes.data;
 
-		// Put the tokens and user data on res
-		cookies().set('accessToken', access_token);
+		// Set a 2 hour expiration on the access token
+		cookies().set('accessToken', access_token, { maxAge: 60 * 60 * 2 });
 		cookies().set('refreshToken', refresh_token);
 
 		return NextResponse.redirect(baseUrl);
