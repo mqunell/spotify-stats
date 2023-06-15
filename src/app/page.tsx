@@ -1,92 +1,90 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 // import Head from 'next/head';
-import axios from 'axios';
 import { getCookies } from 'cookies-next';
-import Playlists from '@/components/FetchWrapper';
-import Link from 'next/link';
-
-type UserData = {
-	loading: boolean;
-	data: {
-		display_name: string;
-		id: string;
-	} | null;
-	error: string;
-};
+import FetchWrapper from '@/components/FetchWrapper';
+import ChoosePlaylists from '@/components/ChoosePlaylists';
+import Login from '@/components/Login';
+import axios from 'axios';
 
 const Home = () => {
 	const cookies = getCookies();
-
 	const [accessToken, setAccessToken] = useState<string | undefined>();
 	const [refreshToken, setRefreshToken] = useState<string | undefined>();
+
 	const [userData, setUserData] = useState<UserData>({
 		loading: false,
-		data: null,
-		error: '',
+		displayName: '',
+		playlistMetas: [],
+		error: null,
 	});
 
-	useEffect(() => {
-		const { accessToken, refreshToken } = cookies;
+	const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
+	const [showChoosePlaylists, setShowChoosePlaylists] = useState<boolean>(true);
 
-		if (accessToken && refreshToken) {
-			setAccessToken(accessToken);
-			setRefreshToken(refreshToken);
-			getUserData();
-		}
+	useEffect(() => {
+		setAccessToken(cookies.accessToken);
+		setRefreshToken(cookies.refreshToken);
 	}, [cookies]);
 
-	const getUserData = async () => {
-		if (!accessToken || userData.loading || userData.data) return;
+	useEffect(() => {
+		const getAuthData = async () => {
+			setUserData((prev) => ({ ...prev, loading: true }));
 
-		setUserData((prev) => ({ ...prev, loading: true }));
+			try {
+				const res = await axios.post('/api/user', { accessToken });
+				const { displayName, playlistMetas } = res.data;
+				setUserData((prev) => ({ ...prev, displayName, playlistMetas }));
+			} catch (error) {
+				setUserData((prev) => ({ ...prev, error }));
+				console.error('getAuthData error', error);
+			}
 
-		try {
-			const res = await axios.post('/api/user', { accessToken });
-			const data = res.data;
-			setUserData((prev) => ({ ...prev, data }));
-		} catch (error) {
-			setUserData((prev) => ({ ...prev, error }));
-			console.error(error);
-		} finally {
 			setUserData((prev) => ({ ...prev, loading: false }));
-		}
-	};
-
-	const getOutput = () => {
-		if (cookies.error) return <p>{JSON.stringify(cookies.error)}</p>;
+		};
 
 		if (!accessToken) {
-			return (
-				<>
-					<h1 className="text-xl">Music Time 🎸 🥁</h1>
-					<p>Authenticate with Spotify for the Full Experience™️</p>
-					<Link
-						href="/api/auth"
-						className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-500"
-					>
-						Log in with Spotify 🤙
-					</Link>
-				</>
-			);
+			setUserData({ loading: false, displayName: '', playlistMetas: [], error: '' });
+		} else {
+			getAuthData();
 		}
+	}, [accessToken]);
 
-		if (userData.loading) return <p>Loading...</p>;
+	// Debugging - probably won't see this anymore (does it even work?)
+	if (cookies.error) return <p>{JSON.stringify(cookies.error)}</p>;
+	if (!accessToken) return <Login />;
+	if (userData.loading) return <p>Loading...</p>;
+	if (userData.error) return <p>{userData.error}</p>;
 
-		if (userData.error) return <p>{userData.error}</p>;
+	return (
+		<>
+			<h1 className="text-xl">Hello, {userData.displayName}</h1>
+			<p>Access: {accessToken}</p>
+			<p>Refresh: {refreshToken}</p>
 
-		return (
-			<>
-				<h1 className="text-xl">Hello, {userData.data?.display_name}</h1>
-				<p>Access: {accessToken}</p>
-				<p>Refresh: {refreshToken}</p>
-				<Playlists accessToken={accessToken} />
-			</>
-		);
-	};
+			{showChoosePlaylists ? (
+				<ChoosePlaylists
+					playlistMetas={userData.playlistMetas}
+					selectedPlaylists={selectedPlaylists}
+					setSelectedPlaylists={setSelectedPlaylists}
+					submitPlaylists={() => setShowChoosePlaylists(false)}
+				/>
+			) : (
+				<div className="flex flex-col items-start gap-2">
+					{/* <FetchWrapper selectedPlaylists={selectedPlaylists} /> */}
 
-	return <section className="flex flex-col items-start gap-2 p-4">{getOutput()}</section>;
+					<button
+						type="button"
+						className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
+						onClick={() => setShowChoosePlaylists(true)}
+					>
+						Change playlists
+					</button>
+				</div>
+			)}
+		</>
+	);
 };
 
 export default Home;

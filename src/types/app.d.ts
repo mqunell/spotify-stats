@@ -1,3 +1,16 @@
+type UserData = {
+	loading: boolean;
+	displayName: string;
+	playlistMetas: PlaylistMeta[];
+	error: string | null;
+};
+
+type PlaylistMeta = {
+	name: string;
+	spotifyLink: string;
+	apiLink: string;
+};
+
 type Playlist = {
 	name: string;
 	link: string;

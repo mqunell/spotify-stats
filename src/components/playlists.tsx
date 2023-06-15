@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import classNames from 'classnames';
-import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
+import { getMostCommonArtists /* getPlaylistDurations */ } from '@/lib/stats';
 
 interface Props {
 	playlists: Playlist[];
@@ -41,7 +41,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([]);
 	const [filter, setFilter] = useState('');
 
-	const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists]);
+	// const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists]);
 	const mostCommonArtists = useMemo(() => getMostCommonArtists(playlists), [playlists]);
 
 	useEffect(() => {
@@ -83,7 +83,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 						({mostCommonArtists[0].count})
 					</p>
 				)}
-				{playlistDurations && (
+				{/* {playlistDurations && (
 					<>
 						<p>
 							Shortest playlist: {playlistDurations.shortest.name} (
@@ -94,7 +94,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 							{formatTime(playlistDurations.longest.duration)})
 						</p>
 					</>
-				)}
+				)} */}
 			</div>
 
 			<div className="grid max-w-6xl gap-x-4">

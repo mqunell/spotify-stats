@@ -2,6 +2,14 @@
  * See the links for more information and unlisted properties
  */
 
+// /me
+type ApiMe = {
+	display_name: string;
+	href: string;
+	id: string;
+	// others
+};
+
 // /users/{user_id}/playlists
 // https://developer.spotify.com/documentation/web-api/reference/#/operations/get-list-users-playlists
 type ApiPlaylistsMeta = {
