@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Fragment } from 'react';
 import classNames from 'classnames';
 import { getMostCommonArtists /* getPlaylistDurations */ } from '@/lib/stats';
 
@@ -58,7 +58,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 	if (!playlists.length) return <p>Loading...</p>;
 
 	return (
-		<section className="flex flex-col gap-4 p-4">
+		<section className="flex w-[1200px] flex-col gap-4">
 			<div className="flex items-center gap-4">
 				<input
 					className="mr-auto rounded border border-slate-300 px-3 py-1"
@@ -97,13 +97,13 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 				)} */}
 			</div>
 
-			<div className="grid max-w-6xl gap-x-4">
+			<div className="grid w-full gap-x-4">
 				<p className="pl-1 font-bold">Track</p>
 				<p className="font-bold">Artist</p>
 				<p className="font-bold">Album</p>
 				<p className="pr-1 font-bold">Time</p>
 				{displayPlaylists.map((playlist: Playlist) => (
-					<>
+					<Fragment key={playlist.link}>
 						<div className="col-span-4 flex justify-center rounded bg-slate-100 py-1">
 							<a href={playlist.link} className="text-lg hover:text-blue-400">
 								{playlist.name}
@@ -128,7 +128,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 								/>
 							</>
 						))}
-					</>
+					</Fragment>
 				))}
 			</div>
 		</section>

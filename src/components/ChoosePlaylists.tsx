@@ -25,7 +25,7 @@ const ChoosePlaylists = ({
 
 	const toggleRegex = () => {
 		const re = new RegExp(regex);
-		const selected = playlistMetas.filter((d) => re.test(d.name)).map((d) => d.name);
+		const selected = playlistMetas.filter((d) => re.test(d.name)).map((d) => d.apiLink);
 		setSelectedPlaylists(selected);
 	};
 
@@ -63,22 +63,13 @@ const ChoosePlaylists = ({
 				))}
 			</div>
 
-			<div className="flex gap-2">
-				<button
-					type="button"
-					className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
-					onClick={() => console.log({ selectedPlaylists })}
-				>
-					Test
-				</button>
-				<button
-					type="button"
-					className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
-					onClick={() => submitPlaylists()}
-				>
-					Submit playlists
-				</button>
-			</div>
+			<button
+				type="button"
+				className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
+				onClick={() => submitPlaylists()}
+			>
+				Submit playlists
+			</button>
 		</>
 	);
 };

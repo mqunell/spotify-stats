@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import axios from 'axios';
 import fs from 'fs';
-
-const playlistsUrl = 'https://api.spotify.com/v1/me/playlists?limit=50';
 
 const axiosConfig = (accessToken: string) => ({
 	headers: { Authorization: 'Bearer ' + accessToken },
@@ -43,29 +42,34 @@ const getTracks = async (accessToken: string, tracksUrl: string) => {
  * Retrieve data from Spotify, format and write it to JSON, and return (for API)
  */
 export const POST = async (req: Request) => {
-	const body = await req.json();
-	const { accessToken } = body;
+	// LOCAL CACHE
+	const jsonData: string = fs.readFileSync('formattedPlaylists2.json').toString();
+	const formattedPlaylists: Playlist[] = JSON.parse(jsonData);
+	return NextResponse.json(formattedPlaylists);
+
+	/* const body = await req.json();
+
+	const accessToken = cookies().get('accessToken')?.value as string;
+	const playlistMetas: PlaylistMeta[] = body.playlistMetas;
 
 	try {
-		const axiosRes = await axios.get(playlistsUrl, axiosConfig(accessToken));
-		const data: ApiPlaylistsMeta = axiosRes.data;
-
-		const formattedPlaylistsPromises = data.items.map(async (item: ApiPlaylist) => ({
-			name: item.name,
-			link: item.external_urls.spotify,
-			tracks: await getTracks(accessToken, item.tracks.href),
+		const playlistsTracksPromises = playlistMetas.map(async (pm: PlaylistMeta) => ({
+			name: pm.name,
+			link: pm.spotifyLink,
+			tracks: await getTracks(accessToken, pm.apiLink),
 		}));
 
-		const formattedPlaylists: Playlist[] = await Promise.all(formattedPlaylistsPromises);
+		// TODO: Rate limit these requests
+		const formattedPlaylists: Playlist[] = await Promise.all(playlistsTracksPromises);
 
-		/* fs.writeFileSync(
-			'formattedPlaylists.json',
-			JSON.stringify(formattedPlaylists, null, '\t')
-		); */
+		// fs.writeFileSync(
+		// 	'formattedPlaylists2.json',
+		// 	JSON.stringify(formattedPlaylists, null, '\t')
+		// );
 
 		return NextResponse.json(formattedPlaylists);
 	} catch (error) {
 		console.error('handler', error);
 		return [];
-	}
+	} */
 };

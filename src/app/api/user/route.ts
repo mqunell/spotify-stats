@@ -11,17 +11,18 @@ const formatApiPlaylists = (items: ApiPlaylist[]): PlaylistMeta[] => {
 };
 
 export const POST = async (req: Request) => {
-	const body = await req.json();
+	// LOCAL CACHE
+	const displayName = 'matt';
+	const jsonData: string = fs.readFileSync('playlistMetas.json').toString();
+	const playlistMetas: PlaylistMeta[] = JSON.parse(jsonData);
+	return NextResponse.json({ displayName, playlistMetas });
+
+	/* const body = await req.json();
 	const { accessToken } = body;
 
 	const axiosConfig = { headers: { Authorization: 'Bearer ' + accessToken } };
 
 	try {
-		// LOCAL CACHE
-		/* const displayName = 'matt';
-		const jsonData: string = fs.readFileSync('playlistMetas.json').toString();
-		const playlistMetas: PlaylistMeta[] = JSON.parse(jsonData); */
-
 		// Display name
 		const meRes = await axios.get('https://api.spotify.com/v1/me', axiosConfig);
 		const meData: ApiMe = meRes.data;
@@ -45,5 +46,5 @@ export const POST = async (req: Request) => {
 		return NextResponse.json({ displayName, playlistMetas });
 	} catch (error) {
 		console.error('error in user route');
-	}
+	} */
 };

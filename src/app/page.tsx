@@ -51,38 +51,38 @@ const Home = () => {
 		}
 	}, [accessToken]);
 
+	const filterPlaylistMetas = () =>
+		userData.playlistMetas.filter((pm) => selectedPlaylists.includes(pm.apiLink));
+
 	// Debugging - probably won't see this anymore (does it even work?)
 	if (cookies.error) return <p>{JSON.stringify(cookies.error)}</p>;
 	if (!accessToken) return <Login />;
 	if (userData.loading) return <p>Loading...</p>;
 	if (userData.error) return <p>{userData.error}</p>;
 
-	return (
+	return showChoosePlaylists ? (
 		<>
 			<h1 className="text-xl">Hello, {userData.displayName}</h1>
 			<p>Access: {accessToken}</p>
 			<p>Refresh: {refreshToken}</p>
+			<ChoosePlaylists
+				playlistMetas={userData.playlistMetas}
+				selectedPlaylists={selectedPlaylists}
+				setSelectedPlaylists={setSelectedPlaylists}
+				submitPlaylists={() => setShowChoosePlaylists(false)}
+			/>
+		</>
+	) : (
+		<>
+			<FetchWrapper accessToken={accessToken} playlistMetas={filterPlaylistMetas()} />
 
-			{showChoosePlaylists ? (
-				<ChoosePlaylists
-					playlistMetas={userData.playlistMetas}
-					selectedPlaylists={selectedPlaylists}
-					setSelectedPlaylists={setSelectedPlaylists}
-					submitPlaylists={() => setShowChoosePlaylists(false)}
-				/>
-			) : (
-				<div className="flex flex-col items-start gap-2">
-					{/* <FetchWrapper selectedPlaylists={selectedPlaylists} /> */}
-
-					<button
-						type="button"
-						className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
-						onClick={() => setShowChoosePlaylists(true)}
-					>
-						Change playlists
-					</button>
-				</div>
-			)}
+			<button
+				type="button"
+				className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
+				onClick={() => setShowChoosePlaylists(true)}
+			>
+				Change playlists
+			</button>
 		</>
 	);
 };
