@@ -1,7 +1,7 @@
 /**
  * Get the shortest and longest playlists
  */
-/* export const getPlaylistDurations = (playlists: Playlist[]): ShortestLongest => {
+export const getPlaylistDurations = (playlists: Playlist[]): ShortestLongest => {
 	if (!playlists || !playlists.length) {
 		return null;
 	}
@@ -16,8 +16,8 @@
 		if (!longest || duration > longest.duration) longest = { name, duration };
 	});
 
-	return { shortest, longest };
-}; */
+	return { shortest: shortest!, longest: longest! };
+};
 
 /**
  * Count the primary artist that shows up in the most unique playlists

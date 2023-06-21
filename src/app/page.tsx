@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 // import Head from 'next/head';
 import { getCookies } from 'cookies-next';
 import FetchWrapper from '@/components/FetchWrapper';
@@ -63,8 +63,6 @@ const Home = () => {
 	return showChoosePlaylists ? (
 		<>
 			<h1 className="text-xl">Hello, {userData.displayName}</h1>
-			<p>Access: {accessToken}</p>
-			<p>Refresh: {refreshToken}</p>
 			<ChoosePlaylists
 				playlistMetas={userData.playlistMetas}
 				selectedPlaylists={selectedPlaylists}

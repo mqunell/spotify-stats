@@ -11,13 +11,7 @@ const formatApiPlaylists = (items: ApiPlaylist[]): PlaylistMeta[] => {
 };
 
 export const POST = async (req: Request) => {
-	// LOCAL CACHE
-	const displayName = 'matt';
-	const jsonData: string = fs.readFileSync('playlistMetas.json').toString();
-	const playlistMetas: PlaylistMeta[] = JSON.parse(jsonData);
-	return NextResponse.json({ displayName, playlistMetas });
-
-	/* const body = await req.json();
+	const body = await req.json();
 	const { accessToken } = body;
 
 	const axiosConfig = { headers: { Authorization: 'Bearer ' + accessToken } };
@@ -46,5 +40,11 @@ export const POST = async (req: Request) => {
 		return NextResponse.json({ displayName, playlistMetas });
 	} catch (error) {
 		console.error('error in user route');
-	} */
+	}
+
+	// LOCAL CACHE
+	/* const displayName = 'matt';
+	const jsonData: string = fs.readFileSync('playlistMetas.json').toString();
+	const playlistMetas: PlaylistMeta[] = JSON.parse(jsonData);
+	return NextResponse.json({ displayName, playlistMetas }); */
 };

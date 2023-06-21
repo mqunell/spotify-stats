@@ -5,7 +5,11 @@ module.exports = {
 		'./src/components/**/*.{js,ts,jsx,tsx}',
 	],
 	theme: {
-		extend: {},
+		extend: {
+			gridTemplateColumns: {
+				playlistTitles: 'repeat(auto-fit, 24ch)',
+			},
+		},
 	},
 	plugins: [],
 };

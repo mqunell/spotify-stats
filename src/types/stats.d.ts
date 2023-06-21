@@ -1,14 +1,14 @@
-interface PlaylistDuration {
+type PlaylistDuration = {
 	name: string;
 	duration: number; // ms
-}
+};
 
-interface ShortestLongest {
+type ShortestLongest = {
 	shortest: PlaylistDuration;
 	longest: PlaylistDuration;
-}
+} | null;
 
-interface ArtistCount {
+type ArtistCount = {
 	artist: string;
 	count: number;
-}
+};

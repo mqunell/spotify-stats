@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, Fragment } from 'react';
 import classNames from 'classnames';
-import { getMostCommonArtists /* getPlaylistDurations */ } from '@/lib/stats';
+import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
 
 interface Props {
 	playlists: Playlist[];
@@ -41,7 +41,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([]);
 	const [filter, setFilter] = useState('');
 
-	// const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists]);
+	const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists]);
 	const mostCommonArtists = useMemo(() => getMostCommonArtists(playlists), [playlists]);
 
 	useEffect(() => {
@@ -59,20 +59,35 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 
 	return (
 		<section className="flex w-[1200px] flex-col gap-4">
-			<div className="flex items-center gap-4">
-				<input
-					className="mr-auto rounded border border-slate-300 px-3 py-1"
-					type="text"
-					placeholder="Song, Artist, or Album"
-					onChange={(e) => setFilter(e.target.value)}
-				/>
-
-				<p>
-					{displayPlaylists.length !== playlists.length && displayPlaylists.length + '/'}
-					{playlists.length} Playlists
-				</p>
-				{mostCommonArtists.length && mostCommonArtists[0].count > 1 && (
+			<div className="flex justify-between gap-4">
+				<div>
+					<input
+						className="mr-auto w-64 rounded border border-slate-300 px-3 py-1"
+						type="text"
+						placeholder="Filter by song, artist, or album"
+						onChange={(e) => setFilter(e.target.value)}
+					/>
 					<p>
+						{displayPlaylists.length !== playlists.length &&
+							displayPlaylists.length + '/'}
+						{playlists.length} Playlists
+					</p>
+				</div>
+
+				{playlistDurations && (
+					<div>
+						<p>
+							Shortest: {playlistDurations.shortest.name} (
+							{formatTime(playlistDurations.shortest.duration)})
+						</p>
+						<p>
+							Longest: {playlistDurations.longest.name} (
+							{formatTime(playlistDurations.longest.duration)})
+						</p>
+					</div>
+				)}
+				{mostCommonArtists.length && mostCommonArtists[0].count > 1 && (
+					<p className="max-w-xl">
 						Most common artist{mostCommonArtists.length ? 's' : ''}:{' '}
 						{mostCommonArtists.length
 							? mostCommonArtists
@@ -83,18 +98,6 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 						({mostCommonArtists[0].count})
 					</p>
 				)}
-				{/* {playlistDurations && (
-					<>
-						<p>
-							Shortest playlist: {playlistDurations.shortest.name} (
-							{formatTime(playlistDurations.shortest.duration)})
-						</p>
-						<p>
-							Longest playlist: {playlistDurations.longest.name} (
-							{formatTime(playlistDurations.longest.duration)})
-						</p>
-					</>
-				)} */}
 			</div>
 
 			<div className="grid w-full gap-x-4">

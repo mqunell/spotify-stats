@@ -42,12 +42,7 @@ const getTracks = async (accessToken: string, tracksUrl: string) => {
  * Retrieve data from Spotify, format and write it to JSON, and return (for API)
  */
 export const POST = async (req: Request) => {
-	// LOCAL CACHE
-	const jsonData: string = fs.readFileSync('formattedPlaylists2.json').toString();
-	const formattedPlaylists: Playlist[] = JSON.parse(jsonData);
-	return NextResponse.json(formattedPlaylists);
-
-	/* const body = await req.json();
+	const body = await req.json();
 
 	const accessToken = cookies().get('accessToken')?.value as string;
 	const playlistMetas: PlaylistMeta[] = body.playlistMetas;
@@ -71,5 +66,10 @@ export const POST = async (req: Request) => {
 	} catch (error) {
 		console.error('handler', error);
 		return [];
-	} */
+	}
+
+	// LOCAL CACHE
+	/* const jsonData: string = fs.readFileSync('formattedPlaylists2.json').toString();
+	const formattedPlaylists: Playlist[] = JSON.parse(jsonData);
+	return NextResponse.json(formattedPlaylists); */
 };
