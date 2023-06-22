@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import axios from 'axios';
 import { stringify } from 'querystring';
 
-const { CLIENT_ID, CLIENT_SECRET, STATE_KEY } = process.env;
+const { CLIENT_ID, CLIENT_SECRET, STATE_KEY, ROOT_URL } = process.env;
 
 // Receive the auth token and redirect the user to '/'
 export const GET = async (req: NextRequest) => {
@@ -11,11 +11,9 @@ export const GET = async (req: NextRequest) => {
 	const code = searchParams.get('code');
 	const state = searchParams.get('state');
 
-	const baseUrl = 'http://localhost:3000/'; // `${req.nextUrl.protocol}${req.nextUrl.host}/`;
-
 	if (!state || state !== cookies().get(STATE_KEY as string)?.value) {
 		cookies().set('error', 'State mismatch');
-		return NextResponse.redirect(baseUrl);
+		return NextResponse.redirect(ROOT_URL!);
 	}
 
 	// Delete the cookie
@@ -27,7 +25,7 @@ export const GET = async (req: NextRequest) => {
 			stringify({
 				code,
 				grant_type: 'authorization_code',
-				redirect_uri: 'http://localhost:3000/api/authCallback',
+				redirect_uri: `${ROOT_URL}api/authCallback`,
 				json: true,
 			}),
 			{
@@ -43,7 +41,7 @@ export const GET = async (req: NextRequest) => {
 		cookies().set('accessToken', access_token, { maxAge: 60 * 60 * 2 });
 		cookies().set('refreshToken', refresh_token);
 
-		return NextResponse.redirect(baseUrl);
+		return NextResponse.redirect(ROOT_URL!);
 	} catch (error) {
 		console.error('error with /api/token');
 	}

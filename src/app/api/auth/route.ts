@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { stringify } from 'querystring';
 
-const { CLIENT_ID, STATE_KEY } = process.env;
+const { CLIENT_ID, STATE_KEY, ROOT_URL } = process.env;
 
 /**
  * Generates a random string containing numbers and letters
@@ -31,7 +31,7 @@ export const GET = async (): Promise<NextResponse> => {
 				response_type: 'code',
 				client_id: CLIENT_ID,
 				scope: 'playlist-read-private',
-				redirect_uri: 'http://localhost:3000/api/authCallback',
+				redirect_uri: `${ROOT_URL}api/authCallback`,
 				state,
 			})
 	);
