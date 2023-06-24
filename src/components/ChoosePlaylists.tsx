@@ -52,7 +52,7 @@ const ChoosePlaylists = ({
 			<div className="mt-2 flex gap-2">
 				<input
 					type="text"
-					className="rounded-sm border border-black px-3 py-1"
+					className="rounded-sm border border-black px-3 py-1 text-black"
 					placeholder="Regex matcher"
 					onChange={(e) => toggleRegex(e.target.value)}
 				/>

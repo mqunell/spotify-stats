@@ -31,7 +31,7 @@ const formatTime = (duration: number): string => {
 
 const GridCell = ({ className, filter, text }: GridCellProps) => {
 	const classes = classNames(className, 'truncate', {
-		'bg-yellow-100': filter.length && filterText(text, filter),
+		'bg-emerald-100 dark:bg-emerald-700': filter.length && filterText(text, filter),
 	});
 
 	return <p className={classes}>{text}</p>;
@@ -62,7 +62,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 			<div className="flex justify-between gap-4">
 				<div>
 					<input
-						className="mr-auto w-64 rounded border border-slate-300 px-3 py-1"
+						className="mr-auto w-64 rounded border border-slate-300 px-3 py-1 text-black"
 						type="text"
 						placeholder="Filter by song, artist, or album"
 						onChange={(e) => setFilter(e.target.value)}
@@ -107,7 +107,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 				<p className="pr-1 font-bold">Time</p>
 				{displayPlaylists.map((playlist: Playlist) => (
 					<Fragment key={playlist.link}>
-						<div className="col-span-4 flex justify-center rounded bg-slate-100 py-1">
+						<div className="col-span-4 flex justify-center rounded bg-slate-100 py-1 dark:bg-slate-600">
 							<a href={playlist.link} className="text-lg hover:text-blue-400">
 								{playlist.name}
 							</a>
