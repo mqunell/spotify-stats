@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 // import Head from 'next/head';
 import { getCookies } from 'cookies-next';
-import FetchWrapper from '@/components/FetchWrapper';
 import ChoosePlaylists from '@/components/ChoosePlaylists';
 import Login from '@/components/Login';
 import axios from 'axios';
+import Playlists from '@/components/Playlists';
 
 const Home = () => {
 	const cookies = getCookies();
@@ -22,6 +22,7 @@ const Home = () => {
 
 	const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
 	const [showChoosePlaylists, setShowChoosePlaylists] = useState<boolean>(true);
+	const [fetchedPlaylists, setFetchedPlaylists] = useState<Playlist[]>([]);
 
 	useEffect(() => {
 		setAccessToken(cookies.accessToken);
@@ -51,8 +52,20 @@ const Home = () => {
 		}
 	}, [accessToken]);
 
-	const filterPlaylistMetas = () =>
-		userData.playlistMetas.filter((pm) => selectedPlaylists.includes(pm.apiLink));
+	const fetchPlaylistsTracks = async () => {
+		const playlistMetas = userData.playlistMetas.filter((pm) =>
+			selectedPlaylists.includes(pm.apiLink)
+		);
+
+		try {
+			const res = await axios.post('/api/playlistsTracks', { playlistMetas });
+			const playlists: Playlist[] = res.data;
+
+			setFetchedPlaylists(playlists);
+		} catch (error) {
+			console.log('api fail');
+		}
+	};
 
 	// Debugging - probably won't see this anymore (does it even work?)
 	if (cookies.error) return <p>{JSON.stringify(cookies.error)}</p>;
@@ -67,16 +80,19 @@ const Home = () => {
 				playlistMetas={userData.playlistMetas}
 				selectedPlaylists={selectedPlaylists}
 				setSelectedPlaylists={setSelectedPlaylists}
-				submitPlaylists={() => setShowChoosePlaylists(false)}
+				submitPlaylists={() => {
+					setShowChoosePlaylists(false);
+					fetchPlaylistsTracks();
+				}}
 			/>
 		</>
 	) : (
 		<>
-			<FetchWrapper accessToken={accessToken} playlistMetas={filterPlaylistMetas()} />
+			<Playlists playlists={fetchedPlaylists} />
 
 			<button
 				type="button"
-				className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
+				className="mx-auto rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
 				onClick={() => setShowChoosePlaylists(true)}
 			>
 				Change playlists
