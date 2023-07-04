@@ -7,6 +7,8 @@ const axiosConfig = (accessToken: string) => ({
 	headers: { Authorization: 'Bearer ' + accessToken },
 });
 
+const rateLimit = () => new Promise((resolve, reject) => setTimeout(resolve, 2000));
+
 const getTracks = async (accessToken: string, tracksUrl: string) => {
 	try {
 		const axiosRes = await axios.get(tracksUrl, axiosConfig(accessToken));
@@ -48,17 +50,29 @@ export const POST = async (req: Request) => {
 	const playlistMetas: PlaylistMeta[] = body.playlistMetas;
 
 	try {
-		const playlistsTracksPromises = playlistMetas.map(async (pm: PlaylistMeta) => ({
-			name: pm.name,
-			link: pm.spotifyLink,
-			tracks: await getTracks(accessToken, pm.apiLink),
-		}));
+		const formattedPlaylists: Playlist[] = [];
 
-		// TODO: Rate limit these requests
-		const formattedPlaylists: Playlist[] = await Promise.all(playlistsTracksPromises);
+		while (playlistMetas.length) {
+			console.log('waiting');
+			await rateLimit();
+
+			const metasToFetch: PlaylistMeta[] = playlistMetas.splice(0, 3);
+			console.log('getting tracks for', metasToFetch.map((pm) => pm.name).join(', '));
+
+			const playlistPromises: Promise<Playlist>[] = metasToFetch.map(
+				async (pm: PlaylistMeta) => ({
+					name: pm.name,
+					link: pm.spotifyLink,
+					tracks: await getTracks(accessToken, pm.apiLink),
+				})
+			);
+
+			const playlists: Playlist[] = await Promise.all(playlistPromises);
+			formattedPlaylists.push(...playlists);
+		}
 
 		// fs.writeFileSync(
-		// 	'formattedPlaylists2.json',
+		// 	'formattedPlaylists3.json',
 		// 	JSON.stringify(formattedPlaylists, null, '\t')
 		// );
 

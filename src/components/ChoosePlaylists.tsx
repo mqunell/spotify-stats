@@ -25,17 +25,17 @@ const ChoosePlaylists = ({
 			return;
 		}
 
-		const re = new RegExp(input);
-		const selected = playlistMetas.filter((d) => re.test(d.name)).map((d) => d.apiLink);
-		setSelectedPlaylists(selected);
+		try {
+			const re = new RegExp(input);
+			const selected = playlistMetas.filter((d) => re.test(d.name)).map((d) => d.apiLink);
+			setSelectedPlaylists(selected);
+		} catch (error) {}
 	};
 
 	if (!playlistMetas.length) return <p>Loading...</p>;
 
 	return (
 		<>
-			<p>Choose up to 5 playlists</p>
-
 			<div className="grid w-full grid-cols-playlistTitles gap-2">
 				{playlistMetas.map(({ name, apiLink }) => (
 					<label key={apiLink} className="flex items-center gap-1">
@@ -60,7 +60,7 @@ const ChoosePlaylists = ({
 				<button
 					type="button"
 					className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400 disabled:bg-emerald-800"
-					disabled={selectedPlaylists.length === 0 || selectedPlaylists.length > 5}
+					disabled={!selectedPlaylists.length}
 					onClick={() => submitPlaylists()}
 				>
 					Submit playlists
