@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Fragment } from 'react';
 import { filterText, formatTime } from './Playlists';
 
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const GridCell = ({ className, filter, text }: GridCellProps) => {
-	const classes = classNames(className, 'truncate', {
+	const classes = clsx(className, 'truncate', {
 		'bg-emerald-100 dark:bg-emerald-700': filter.length && filterText(text, filter),
 	});
 
