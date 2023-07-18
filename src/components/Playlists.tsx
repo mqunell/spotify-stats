@@ -26,6 +26,7 @@ export const formatTime = (duration: number): string => {
 
 const Playlists = ({ playlists }: Props): JSX.Element => {
 	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([]);
+	const [showAlbums, setShowAlbums] = useState(false);
 	const [filter, setFilter] = useState('');
 
 	const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists]);
@@ -49,7 +50,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 			<div className="flex flex-col gap-4 lg:flex-row lg:justify-between">
 				<div>
 					<input
-						className="mr-auto w-64 rounded border border-slate-300 px-3 py-1 text-black"
+						className="mr-auto w-full rounded border border-slate-300 px-3 py-1 text-black lg:w-64"
 						type="text"
 						placeholder="Filter by song, artist, or album"
 						onChange={(e) => setFilter(e.target.value)}
@@ -60,6 +61,14 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 						{playlists.length} Playlists
 					</p>
 				</div>
+
+				<button
+					type="button"
+					className="rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400 lg:hidden"
+					onClick={() => setShowAlbums(!showAlbums)}
+				>
+					{showAlbums ? 'Hide' : 'Show'} albums
+				</button>
 
 				{playlistDurations && (
 					<div>
@@ -75,7 +84,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 				)}
 				{mostCommonArtists.length && mostCommonArtists[0].count > 1 && (
 					<p className="max-w-xl">
-						Most common artist{mostCommonArtists.length ? 's' : ''}:{' '}
+						Most common artist{mostCommonArtists.length > 1 ? 's' : ''}:{' '}
 						{mostCommonArtists.length
 							? mostCommonArtists
 									.map((mca) => mca.artist)
@@ -87,7 +96,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 				)}
 			</div>
 
-			<PlaylistsMobile displayPlaylists={displayPlaylists} />
+			<PlaylistsMobile displayPlaylists={displayPlaylists} showAlbums={showAlbums} />
 			<PlaylistsDesktop displayPlaylists={displayPlaylists} filter={filter} />
 		</section>
 	);
