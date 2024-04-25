@@ -2,14 +2,6 @@ import { NextResponse } from 'next/server';
 import axios from 'axios';
 import fs from 'fs';
 
-const formatApiPlaylists = (items: ApiPlaylist[]): PlaylistMeta[] => {
-	return items.map((apiPlaylist: ApiPlaylist) => ({
-		name: apiPlaylist.name,
-		spotifyLink: apiPlaylist.external_urls.spotify,
-		apiLink: apiPlaylist.tracks.href,
-	}));
-};
-
 export const POST = async (req: Request) => {
 	const body = await req.json();
 	const { accessToken } = body;
@@ -18,24 +10,32 @@ export const POST = async (req: Request) => {
 
 	try {
 		// Display name
-		const meRes = await axios.get('https://api.spotify.com/v1/me', axiosConfig);
-		const meData: ApiMe = meRes.data;
-		const displayName = meData.display_name;
+		const meRes = await axios.get<ApiMe>('https://api.spotify.com/v1/me', axiosConfig);
+		const displayName = meRes.data.display_name;
 
 		// Playlists initial request
-		let playlistsRes = await axios.get(
+		let playlistsRes = await axios.get<ApiPlaylistsMeta>(
 			'https://api.spotify.com/v1/me/playlists?limit=50',
 			axiosConfig
 		);
-		let playlistsData: ApiPlaylistsMeta = playlistsRes.data;
-		const playlistMetas: PlaylistMeta[] = formatApiPlaylists(playlistsData.items);
+		const apiPlaylists: ApiPlaylist[] = playlistsRes.data.items;
 
 		// Playlists additional requests
-		while (playlistsData.next) {
-			playlistsRes = await axios.get(playlistsData.next, axiosConfig);
-			playlistsData = playlistsRes.data;
-			playlistMetas.push(...formatApiPlaylists(playlistsData.items));
+		while (playlistsRes.data.next) {
+			playlistsRes = await axios.get<ApiPlaylistsMeta>(
+				playlistsRes.data.next,
+				axiosConfig
+			);
+			apiPlaylists.push(...playlistsRes.data.items);
 		}
+
+		const playlistMetas: PlaylistMeta[] = apiPlaylists
+			.map((apiPlaylist: ApiPlaylist) => ({
+				name: apiPlaylist.name,
+				spotifyLink: apiPlaylist.external_urls.spotify,
+				apiLink: apiPlaylist.tracks.href,
+			}))
+			.sort((a: PlaylistMeta, b: PlaylistMeta) => a.name.localeCompare(b.name));
 
 		return NextResponse.json({ displayName, playlistMetas });
 	} catch (error) {

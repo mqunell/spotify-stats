@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-// import Head from 'next/head';
 import { getCookies } from 'cookies-next';
 import ChoosePlaylists from '@/components/ChoosePlaylists';
 import Login from '@/components/Login';
@@ -53,8 +52,8 @@ const Home = () => {
 	}, [accessToken]);
 
 	const fetchPlaylistsTracks = async () => {
-		const playlistMetas = userData.playlistMetas.filter((pm) =>
-			selectedPlaylists.includes(pm.apiLink)
+		const playlistMetas = userData.playlistMetas.filter(({ apiLink }) =>
+			selectedPlaylists.includes(apiLink)
 		);
 
 		try {

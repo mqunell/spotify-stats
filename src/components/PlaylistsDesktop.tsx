@@ -36,7 +36,7 @@ const PlaylistsDesktop = ({ displayPlaylists, filter }: Props) => (
 				</div>
 
 				{playlist.tracks.map((track: Track) => (
-					<>
+					<Fragment key={track.link}>
 						<GridCell className="pl-1" filter={filter} text={track.name} />
 						<GridCell
 							filter={filter}
@@ -51,7 +51,7 @@ const PlaylistsDesktop = ({ displayPlaylists, filter }: Props) => (
 							filter={filter}
 							text={formatTime(track.duration)}
 						/>
-					</>
+					</Fragment>
 				))}
 			</Fragment>
 		))}
