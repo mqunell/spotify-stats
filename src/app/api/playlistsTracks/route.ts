@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import axios from 'axios';
+import { RATE_LIMIT_DELAY, RATE_LIMIT_REQUESTS } from '@/lib/constants';
 
 const axiosConfig = (accessToken: string) => ({
 	headers: { Authorization: 'Bearer ' + accessToken },
 });
 
-const rateLimit = () => new Promise((resolve, reject) => setTimeout(resolve, 2000));
+const rateLimit = () => new Promise((resolve) => setTimeout(resolve, RATE_LIMIT_DELAY));
 
 const getTracks = async (accessToken: string, tracksUrl: string): Promise<Track[]> => {
 	try {
@@ -55,7 +56,7 @@ export const POST = async (req: Request) => {
 			console.log('waiting');
 			await rateLimit();
 
-			const metasToFetch: PlaylistMeta[] = playlistMetas.splice(0, 3);
+			const metasToFetch: PlaylistMeta[] = playlistMetas.splice(0, RATE_LIMIT_REQUESTS);
 			console.log('getting tracks for', metasToFetch.map((pm) => pm.name).join(', '));
 
 			const playlistPromises: Promise<Playlist>[] = metasToFetch.map(

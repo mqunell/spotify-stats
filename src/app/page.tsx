@@ -6,6 +6,7 @@ import ChoosePlaylists from '@/components/ChoosePlaylists';
 import Login from '@/components/Login';
 import axios from 'axios';
 import Playlists from '@/components/Playlists';
+import Loading from '@/components/Loading';
 
 const Home = () => {
 	const cookies = getCookies();
@@ -69,7 +70,7 @@ const Home = () => {
 	// Debugging - probably won't see this anymore (does it even work?)
 	if (cookies.error) return <p>{JSON.stringify(cookies.error)}</p>;
 	if (!accessToken) return <Login />;
-	if (userData.loading) return <p>Loading...</p>;
+	if (userData.loading) return <Loading quantity={selectedPlaylistLinks.length} />;
 	if (userData.error) return <p>{userData.error}</p>;
 
 	return showChoosePlaylists ? (
