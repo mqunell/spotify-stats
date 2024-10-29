@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import fs from 'fs';
 
 export const POST = async (req: Request) => {
 	const body = await req.json();
@@ -26,7 +25,9 @@ export const POST = async (req: Request) => {
 				playlistsRes.data.next,
 				axiosConfig
 			);
-			apiPlaylists.push(...playlistsRes.data.items);
+
+			// Skip [0] - it's a duplicate of the previous request's [items.length - 1]
+			apiPlaylists.push(...playlistsRes.data.items.slice(1));
 		}
 
 		const playlistMetas: PlaylistMeta[] = apiPlaylists

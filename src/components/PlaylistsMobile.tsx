@@ -21,8 +21,11 @@ const PlaylistsMobile = ({ displayPlaylists, showAlbums }: Props) => (
 
 				<div className="divide-y divide-dotted">
 					{/* Tracks */}
-					{playlist.tracks.map((track: Track) => (
-						<div key={track.link} className="flex justify-between p-2">
+					{playlist.tracks.map((track: Track, index: number) => (
+						<div
+							key={`${playlist.link}-${track.link}-${index}`}
+							className="flex justify-between p-2"
+						>
 							<div className="flex flex-col">
 								<span className="font-bold leading-tight">{track.name}</span>
 								{showAlbums && (

@@ -35,8 +35,8 @@ const PlaylistsDesktop = ({ displayPlaylists, filter }: Props) => (
 					</a>
 				</div>
 
-				{playlist.tracks.map((track: Track) => (
-					<Fragment key={track.link}>
+				{playlist.tracks.map((track: Track, index: number) => (
+					<Fragment key={`${playlist.link}-${track.link}-${index}`}>
 						<GridCell className="pl-1" filter={filter} text={track.name} />
 						<GridCell
 							filter={filter}
