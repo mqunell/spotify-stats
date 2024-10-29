@@ -43,8 +43,6 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 		setDisplayPlaylists(filtered);
 	}, [playlists, filter]);
 
-	if (!playlists.length) return <p>Loading...</p>;
-
 	return (
 		<section className="mx-auto flex w-full max-w-xl flex-col gap-4 lg:max-w-7xl">
 			<div className="flex flex-col gap-4 lg:flex-row lg:justify-between">

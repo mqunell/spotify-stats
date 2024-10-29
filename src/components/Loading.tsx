@@ -1,7 +1,7 @@
 import { RATE_LIMIT_DELAY, RATE_LIMIT_REQUESTS } from '@/lib/constants';
 import { useEffect, useState } from 'react';
 
-const Loading = ({ quantity }: { quantity: number }) => {
+const Loading = ({ quantity }: { quantity?: number }) => {
 	const [loadingCount, setLoadingCount] = useState(1);
 
 	useEffect(() => {
@@ -13,7 +13,7 @@ const Loading = ({ quantity }: { quantity: number }) => {
 	}, []);
 
 	const LoadingText = () => {
-		if (quantity === 0) return <span>Loading playlists...</span>;
+		if (!quantity) return <span>Loading...</span>;
 
 		if (loadingCount <= quantity)
 			return (

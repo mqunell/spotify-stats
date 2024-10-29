@@ -53,6 +53,8 @@ const Home = () => {
 	}, [accessToken]);
 
 	const fetchPlaylistsTracks = async () => {
+		console.log('spl length in function', selectedPlaylistLinks.length);
+
 		const playlistMetas = userData.playlistMetas.filter(({ apiLink }) =>
 			selectedPlaylistLinks.includes(apiLink)
 		);
@@ -66,34 +68,46 @@ const Home = () => {
 			console.log('api fail');
 		}
 	};
+	console.log('spl length outside of function', selectedPlaylistLinks.length);
 
-	// Debugging - probably won't see this anymore (does it even work?)
-	if (cookies.error) return <p>{JSON.stringify(cookies.error)}</p>;
+	// TODO: Something about all these returns...
+	if (cookies.error) return <p>{JSON.stringify(cookies.error)}</p>; // Debugging - probably won't see this anymore (does it even work?)
 	if (!accessToken) return <Login />;
-	if (userData.loading) return <Loading quantity={selectedPlaylistLinks.length} />;
+	if (userData.loading) return <Loading />;
 	if (userData.error) return <p>{userData.error}</p>;
 
-	return showChoosePlaylists ? (
-		<>
-			<h1 className="text-xl">Hello, {userData.displayName}</h1>
-			<ChoosePlaylists
-				playlistMetas={userData.playlistMetas}
-				selectedPlaylists={selectedPlaylistLinks}
-				setSelectedPlaylists={setSelectedPlaylistLinks}
-				submitPlaylists={() => {
-					setShowChoosePlaylists(false);
-					fetchPlaylistsTracks();
-				}}
-			/>
-		</>
-	) : (
+	if (showChoosePlaylists) {
+		return (
+			<>
+				<h1 className="text-xl">Hello, {userData.displayName}</h1>
+				<ChoosePlaylists
+					playlistMetas={userData.playlistMetas}
+					selectedPlaylists={selectedPlaylistLinks}
+					setSelectedPlaylists={setSelectedPlaylistLinks}
+					submitPlaylists={() => {
+						setShowChoosePlaylists(false);
+						fetchPlaylistsTracks();
+					}}
+				/>
+			</>
+		);
+	}
+
+	if (!fetchedPlaylists.length) {
+		return <Loading quantity={selectedPlaylistLinks.length} />;
+	}
+
+	return (
 		<>
 			<Playlists playlists={fetchedPlaylists} />
 
 			<button
 				type="button"
 				className="mx-auto rounded-sm bg-emerald-500 px-3 py-1 text-white hover:bg-emerald-400"
-				onClick={() => setShowChoosePlaylists(true)}
+				onClick={() => {
+					setShowChoosePlaylists(true);
+					setFetchedPlaylists([]);
+				}}
 			>
 				Change playlists
 			</button>
