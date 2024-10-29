@@ -19,7 +19,7 @@ const Home = () => {
 		error: null,
 	});
 
-	const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
+	const [selectedPlaylistLinks, setSelectedPlaylistLinks] = useState<string[]>([]);
 	const [showChoosePlaylists, setShowChoosePlaylists] = useState<boolean>(true);
 	const [fetchedPlaylists, setFetchedPlaylists] = useState<Playlist[]>([]);
 
@@ -53,7 +53,7 @@ const Home = () => {
 
 	const fetchPlaylistsTracks = async () => {
 		const playlistMetas = userData.playlistMetas.filter(({ apiLink }) =>
-			selectedPlaylists.includes(apiLink)
+			selectedPlaylistLinks.includes(apiLink)
 		);
 
 		try {
@@ -77,8 +77,8 @@ const Home = () => {
 			<h1 className="text-xl">Hello, {userData.displayName}</h1>
 			<ChoosePlaylists
 				playlistMetas={userData.playlistMetas}
-				selectedPlaylists={selectedPlaylists}
-				setSelectedPlaylists={setSelectedPlaylists}
+				selectedPlaylists={selectedPlaylistLinks}
+				setSelectedPlaylists={setSelectedPlaylistLinks}
 				submitPlaylists={() => {
 					setShowChoosePlaylists(false);
 					fetchPlaylistsTracks();

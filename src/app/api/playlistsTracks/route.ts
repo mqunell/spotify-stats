@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import axios from 'axios';
-import fs from 'fs';
 
 const axiosConfig = (accessToken: string) => ({
 	headers: { Authorization: 'Bearer ' + accessToken },
@@ -9,7 +8,7 @@ const axiosConfig = (accessToken: string) => ({
 
 const rateLimit = () => new Promise((resolve, reject) => setTimeout(resolve, 2000));
 
-const getTracks = async (accessToken: string, tracksUrl: string) => {
+const getTracks = async (accessToken: string, tracksUrl: string): Promise<Track[]> => {
 	try {
 		const axiosRes = await axios.get(tracksUrl, axiosConfig(accessToken));
 		const data: ApiPlaylistTracksMeta = axiosRes.data;
@@ -81,9 +80,4 @@ export const POST = async (req: Request) => {
 		console.error('handler', error);
 		return [];
 	}
-
-	// LOCAL CACHE
-	/* const jsonData: string = fs.readFileSync('formattedPlaylists2.json').toString();
-	const formattedPlaylists: Playlist[] = JSON.parse(jsonData);
-	return NextResponse.json(formattedPlaylists); */
 };
