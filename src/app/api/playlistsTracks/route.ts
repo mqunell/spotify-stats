@@ -48,10 +48,9 @@ export const POST = async (req: Request) => {
 
 	const accessToken = cookies().get('accessToken')?.value as string;
 	const playlistMetas: PlaylistMeta[] = body.playlistMetas;
+	const formattedPlaylists: Playlist[] = [];
 
 	try {
-		const formattedPlaylists: Playlist[] = [];
-
 		while (playlistMetas.length) {
 			console.log('waiting');
 			await rateLimit();
@@ -75,10 +74,9 @@ export const POST = async (req: Request) => {
 		// 	'formattedPlaylists3.json',
 		// 	JSON.stringify(formattedPlaylists, null, '\t')
 		// );
-
-		return NextResponse.json(formattedPlaylists);
 	} catch (error) {
 		console.error('handler', error);
-		return [];
 	}
+
+	return NextResponse.json(formattedPlaylists);
 };
