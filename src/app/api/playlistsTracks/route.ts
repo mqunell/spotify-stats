@@ -71,7 +71,7 @@ export const POST = async (req: Request) => {
 		}
 
 		// fs.writeFileSync(
-		// 	'formattedPlaylists3.json',
+		// 	'formattedPlaylistsCache.json',
 		// 	JSON.stringify(formattedPlaylists, null, '\t')
 		// );
 	} catch (error) {
