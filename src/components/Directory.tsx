@@ -31,8 +31,8 @@ const Directory = ({ accessToken, logout }: { accessToken: string; logout: Funct
 				const { displayName, playlistMetas } = res.data
 				setUserData((prev) => ({ ...prev, displayName, playlistMetas }))
 			} catch (error) {
-				setUserData((prev) => ({ ...prev, error }))
-				console.error('getAuthData error', error)
+				console.debug('getAuthData error', error)
+				setUserData((prev) => ({ ...prev, error: error?.message ?? 'Unknown' }))
 			}
 
 			setUserData((prev) => ({ ...prev, loading: false }))

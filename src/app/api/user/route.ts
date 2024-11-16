@@ -37,7 +37,8 @@ export const POST = async (req: Request) => {
 
 		return NextResponse.json({ displayName, playlistMetas })
 	} catch (error) {
-		console.error('error in user route')
+		console.debug('error in user route', error)
+		return NextResponse.json({ error: error.message }, { status: 500 })
 	}
 
 	// LOCAL CACHE
