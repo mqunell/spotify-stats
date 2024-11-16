@@ -22,10 +22,8 @@ const Loading = ({ quantity }: { quantity?: number }) => {
 				</span>
 			);
 
-		return <span>Formatting {quantity} playlists...</span>;
+		return <span>Formatting {quantity} playlist{quantity > 1 ? 's' : ''}...</span>;
 	};
-
-	console.log({ quantity, loadingCount });
 
 	return (
 		<div className="flex gap-1">

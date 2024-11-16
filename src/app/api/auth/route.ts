@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { stringify } from 'querystring';
+import { setCookie } from '@/lib/cookies';
 
 const { CLIENT_ID, STATE_KEY, ROOT_URL } = process.env;
 
@@ -23,7 +23,7 @@ const generateRandomString = (length: number): string => {
 export const GET = async (): Promise<NextResponse> => {
 	const state = generateRandomString(16);
 
-	cookies().set(STATE_KEY as string, state);
+	await setCookie(STATE_KEY!, state);
 
 	return NextResponse.redirect(
 		'https://accounts.spotify.com/authorize?' +
@@ -33,6 +33,6 @@ export const GET = async (): Promise<NextResponse> => {
 				scope: 'playlist-read-private',
 				redirect_uri: `${ROOT_URL}api/authCallback`,
 				state,
-			})
+			}),
 	);
 };

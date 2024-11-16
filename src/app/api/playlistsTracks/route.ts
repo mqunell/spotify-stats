@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import axios from 'axios';
 import { RATE_LIMIT_DELAY, RATE_LIMIT_REQUESTS } from '@/lib/constants';
+import { getCookie } from '@/lib/cookies';
 
 const axiosConfig = (accessToken: string) => ({
 	headers: { Authorization: 'Bearer ' + accessToken },
@@ -46,7 +46,7 @@ const getTracks = async (accessToken: string, tracksUrl: string): Promise<Track[
 export const POST = async (req: Request) => {
 	const body = await req.json();
 
-	const accessToken = cookies().get('accessToken')?.value as string;
+	const accessToken = await getCookie('accessToken');
 	const playlistMetas: PlaylistMeta[] = body.playlistMetas;
 	const formattedPlaylists: Playlist[] = [];
 
@@ -62,8 +62,8 @@ export const POST = async (req: Request) => {
 				async (pm: PlaylistMeta) => ({
 					name: pm.name,
 					link: pm.spotifyLink,
-					tracks: await getTracks(accessToken, pm.apiLink),
-				})
+					tracks: await getTracks(accessToken!, pm.apiLink),
+				}),
 			);
 
 			const playlists: Playlist[] = await Promise.all(playlistPromises);

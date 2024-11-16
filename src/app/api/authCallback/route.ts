@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import axios from 'axios';
 import { stringify } from 'querystring';
+import { deleteCookie, getCookie, setCookie } from '@/lib/cookies';
 
 const { CLIENT_ID, CLIENT_SECRET, STATE_KEY, ROOT_URL } = process.env;
 
@@ -10,14 +10,14 @@ export const GET = async (req: NextRequest) => {
 	const { searchParams } = new URL(req.url);
 	const code = searchParams.get('code');
 	const state = searchParams.get('state');
+	const stateCookie = await getCookie(STATE_KEY!);
 
-	if (!state || state !== cookies().get(STATE_KEY as string)?.value) {
-		cookies().set('error', 'State mismatch');
+	if (!state || state !== stateCookie) {
+		await setCookie('error', 'State mismatch');
 		return NextResponse.redirect(ROOT_URL!);
 	}
 
-	// Delete the cookie
-	cookies().set(STATE_KEY as string, '', { maxAge: 0 });
+	await deleteCookie(STATE_KEY!);
 
 	try {
 		const spotifyRes = await axios.post(
@@ -33,13 +33,12 @@ export const GET = async (req: NextRequest) => {
 					Authorization:
 						'Basic ' + Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64'),
 				},
-			}
+			},
 		);
 		const { access_token, refresh_token } = spotifyRes.data;
 
-		// Set a 2 hour expiration on the access token
-		cookies().set('accessToken', access_token, { maxAge: 60 * 60 * 2 });
-		cookies().set('refreshToken', refresh_token);
+		await setCookie('accessToken', access_token);
+		await setCookie('refreshToken', refresh_token);
 
 		return NextResponse.redirect(ROOT_URL!);
 	} catch (error) {
