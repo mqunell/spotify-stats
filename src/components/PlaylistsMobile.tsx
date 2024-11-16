@@ -1,8 +1,8 @@
-import { formatTime } from './Playlists';
+import { formatTime } from './Playlists'
 
 interface Props {
-	displayPlaylists: Playlist[];
-	showAlbums: boolean;
+	displayPlaylists: Playlist[]
+	showAlbums: boolean
 }
 
 const PlaylistsMobile = ({ displayPlaylists, showAlbums }: Props) => (
@@ -11,10 +11,7 @@ const PlaylistsMobile = ({ displayPlaylists, showAlbums }: Props) => (
 			<div key={playlist.link}>
 				{/* Title */}
 				<div className="flex justify-center rounded bg-slate-100 py-1 dark:bg-slate-600">
-					<a
-						href={playlist.link}
-						className="text-lg hover:text-blue-400 dark:text-slate-100"
-					>
+					<a href={playlist.link} className="text-lg hover:text-blue-400 dark:text-slate-100">
 						{playlist.name}
 					</a>
 				</div>
@@ -51,6 +48,6 @@ const PlaylistsMobile = ({ displayPlaylists, showAlbums }: Props) => (
 			</div>
 		))}
 	</div>
-);
+)
 
-export default PlaylistsMobile;
+export default PlaylistsMobile

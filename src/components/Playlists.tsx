@@ -1,36 +1,36 @@
-'use client';
+'use client'
 
-import { useState, useEffect, useMemo } from 'react';
-import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats';
-import PlaylistsMobile from './PlaylistsMobile';
-import PlaylistsDesktop from './PlaylistsDesktop';
+import { useState, useEffect, useMemo } from 'react'
+import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats'
+import PlaylistsDesktop from './PlaylistsDesktop'
+import PlaylistsMobile from './PlaylistsMobile'
 
 interface Props {
-	playlists: Playlist[];
+	playlists: Playlist[]
 }
 
 export const filterText = (text: string, filter: string): Boolean =>
-	text.toLowerCase().includes(filter.toLowerCase());
+	text.toLowerCase().includes(filter.toLowerCase())
 
 const filterTrack = ({ name, artists, album }: Track, filter: string): Boolean =>
 	filterText(name, filter) ||
 	filterText(artists.map((artist) => artist.name).join(''), filter) ||
-	filterText(album.name, filter);
+	filterText(album.name, filter)
 
 export const formatTime = (duration: number): string => {
-	const seconds = Math.round(duration / 1000);
-	const mm = Math.floor(seconds / 60).toString();
-	const ss = (seconds % 60).toString().padStart(2, '0');
-	return `${mm}:${ss}`;
-};
+	const seconds = Math.round(duration / 1000)
+	const mm = Math.floor(seconds / 60).toString()
+	const ss = (seconds % 60).toString().padStart(2, '0')
+	return `${mm}:${ss}`
+}
 
 const Playlists = ({ playlists }: Props): JSX.Element => {
-	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([]);
-	const [showAlbums, setShowAlbums] = useState(false);
-	const [filter, setFilter] = useState('');
+	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([])
+	const [showAlbums, setShowAlbums] = useState(false)
+	const [filter, setFilter] = useState('')
 
-	const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists]);
-	const mostCommonArtists = useMemo(() => getMostCommonArtists(playlists), [playlists]);
+	const playlistDurations = useMemo(() => getPlaylistDurations(playlists), [playlists])
+	const mostCommonArtists = useMemo(() => getMostCommonArtists(playlists), [playlists])
 
 	useEffect(() => {
 		const filtered = playlists
@@ -38,10 +38,10 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 				...playlist,
 				tracks: playlist.tracks.filter((track) => filterTrack(track, filter)),
 			}))
-			.filter(({ tracks }) => tracks.length);
+			.filter(({ tracks }) => tracks.length)
 
-		setDisplayPlaylists(filtered);
-	}, [playlists, filter]);
+		setDisplayPlaylists(filtered)
+	}, [playlists, filter])
 
 	return (
 		<section className="mx-auto flex w-full max-w-xl flex-col gap-4 lg:max-w-7xl">
@@ -54,8 +54,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 						onChange={(e) => setFilter(e.target.value)}
 					/>
 					<p>
-						{displayPlaylists.length !== playlists.length &&
-							displayPlaylists.length + '/'}
+						{displayPlaylists.length !== playlists.length && displayPlaylists.length + '/'}
 						{playlists.length} Playlists
 					</p>
 				</div>
@@ -97,7 +96,7 @@ const Playlists = ({ playlists }: Props): JSX.Element => {
 			<PlaylistsMobile displayPlaylists={displayPlaylists} showAlbums={showAlbums} />
 			<PlaylistsDesktop displayPlaylists={displayPlaylists} filter={filter} />
 		</section>
-	);
-};
+	)
+}
 
-export default Playlists;
+export default Playlists

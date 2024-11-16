@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import { stringify } from 'querystring';
-import { setCookie } from '@/lib/cookies';
+import { NextResponse } from 'next/server'
+import { stringify } from 'querystring'
+import { setCookie } from '@/lib/cookies'
 
-const { CLIENT_ID, STATE_KEY, ROOT_URL } = process.env;
+const { CLIENT_ID, STATE_KEY, ROOT_URL } = process.env
 
 /**
  * Generates a random string containing numbers and letters
@@ -10,20 +10,20 @@ const { CLIENT_ID, STATE_KEY, ROOT_URL } = process.env;
  * @return {string} The generated string
  */
 const generateRandomString = (length: number): string => {
-	let text = '';
-	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let text = ''
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
 	for (let i = 0; i < length; i++) {
-		text += possible.charAt(Math.floor(Math.random() * possible.length));
+		text += possible.charAt(Math.floor(Math.random() * possible.length))
 	}
-	return text;
-};
+	return text
+}
 
 // Create the auth request and redirect the user
 export const GET = async (): Promise<NextResponse> => {
-	const state = generateRandomString(16);
+	const state = generateRandomString(16)
 
-	await setCookie(STATE_KEY!, state);
+	await setCookie(STATE_KEY!, state)
 
 	return NextResponse.redirect(
 		'https://accounts.spotify.com/authorize?' +
@@ -34,5 +34,5 @@ export const GET = async (): Promise<NextResponse> => {
 				redirect_uri: `${ROOT_URL}api/authCallback`,
 				state,
 			}),
-	);
-};
+	)
+}

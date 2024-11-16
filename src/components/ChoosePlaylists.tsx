@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
 interface Props {
-	playlistMetas: PlaylistMeta[];
-	selectedPlaylists: string[];
-	setSelectedPlaylists: Function;
-	submitPlaylists: Function;
+	playlistMetas: PlaylistMeta[]
+	selectedPlaylists: string[]
+	setSelectedPlaylists: Function
+	submitPlaylists: Function
 }
 
 const ChoosePlaylists = ({
@@ -15,24 +15,24 @@ const ChoosePlaylists = ({
 }: Props) => {
 	const toggle = (apiLink: string) => {
 		setSelectedPlaylists((prev: string[]) =>
-			prev.includes(apiLink) ? prev.filter((p) => p !== apiLink) : [...prev, apiLink]
-		);
-	};
+			prev.includes(apiLink) ? prev.filter((p) => p !== apiLink) : [...prev, apiLink],
+		)
+	}
 
 	const toggleRegex = (input: string) => {
 		if (!input) {
-			setSelectedPlaylists([]);
-			return;
+			setSelectedPlaylists([])
+			return
 		}
 
 		try {
-			const re = new RegExp(input);
-			const selected = playlistMetas.filter((d) => re.test(d.name)).map((d) => d.apiLink);
-			setSelectedPlaylists(selected);
+			const re = new RegExp(input)
+			const selected = playlistMetas.filter((d) => re.test(d.name)).map((d) => d.apiLink)
+			setSelectedPlaylists(selected)
 		} catch (error) {}
-	};
+	}
 
-	if (!playlistMetas.length) return <p>Loading...</p>;
+	if (!playlistMetas.length) return <p>Loading...</p>
 
 	return (
 		<>
@@ -67,7 +67,7 @@ const ChoosePlaylists = ({
 				</button>
 			</div>
 		</>
-	);
-};
+	)
+}
 
-export default ChoosePlaylists;
+export default ChoosePlaylists

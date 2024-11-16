@@ -1,21 +1,21 @@
-import { NextResponse } from 'next/server';
-import axios from 'axios';
-import { RATE_LIMIT_DELAY, RATE_LIMIT_REQUESTS } from '@/lib/constants';
-import { getCookie } from '@/lib/cookies';
+import { NextResponse } from 'next/server'
+import axios from 'axios'
+import { RATE_LIMIT_DELAY, RATE_LIMIT_REQUESTS } from '@/lib/constants'
+import { getCookie } from '@/lib/cookies'
 
 const axiosConfig = (accessToken: string) => ({
 	headers: { Authorization: 'Bearer ' + accessToken },
-});
+})
 
-const rateLimit = () => new Promise((resolve) => setTimeout(resolve, RATE_LIMIT_DELAY));
+const rateLimit = () => new Promise((resolve) => setTimeout(resolve, RATE_LIMIT_DELAY))
 
 const getTracks = async (accessToken: string, tracksUrl: string): Promise<Track[]> => {
 	try {
-		const axiosRes = await axios.get(tracksUrl, axiosConfig(accessToken));
-		const data: ApiPlaylistTracksMeta = axiosRes.data;
+		const axiosRes = await axios.get(tracksUrl, axiosConfig(accessToken))
+		const data: ApiPlaylistTracksMeta = axiosRes.data
 
 		const formattedTracks = data.items.map((item: ApiPlaylistTrack) => {
-			const { name, artists, album, duration_ms, external_urls } = item.track;
+			const { name, artists, album, duration_ms, external_urls } = item.track
 
 			return {
 				name,
@@ -30,44 +30,42 @@ const getTracks = async (accessToken: string, tracksUrl: string): Promise<Track[
 					link: album.external_urls.spotify,
 					type: album.album_type,
 				},
-			};
-		});
+			}
+		})
 
-		return formattedTracks;
+		return formattedTracks
 	} catch (error) {
-		console.error('getTracks', error);
-		return [];
+		console.error('getTracks', error)
+		return []
 	}
-};
+}
 
 /**
  * Retrieve data from Spotify, format and write it to JSON, and return (for API)
  */
 export const POST = async (req: Request) => {
-	const body = await req.json();
+	const body = await req.json()
 
-	const accessToken = await getCookie('accessToken');
-	const playlistMetas: PlaylistMeta[] = body.playlistMetas;
-	const formattedPlaylists: Playlist[] = [];
+	const accessToken = await getCookie('accessToken')
+	const playlistMetas: PlaylistMeta[] = body.playlistMetas
+	const formattedPlaylists: Playlist[] = []
 
 	try {
 		while (playlistMetas.length) {
-			console.log('waiting');
-			await rateLimit();
+			console.log('waiting')
+			await rateLimit()
 
-			const metasToFetch: PlaylistMeta[] = playlistMetas.splice(0, RATE_LIMIT_REQUESTS);
-			console.log('getting tracks for', metasToFetch.map((pm) => pm.name).join(', '));
+			const metasToFetch: PlaylistMeta[] = playlistMetas.splice(0, RATE_LIMIT_REQUESTS)
+			console.log('getting tracks for', metasToFetch.map((pm) => pm.name).join(', '))
 
-			const playlistPromises: Promise<Playlist>[] = metasToFetch.map(
-				async (pm: PlaylistMeta) => ({
-					name: pm.name,
-					link: pm.spotifyLink,
-					tracks: await getTracks(accessToken!, pm.apiLink),
-				}),
-			);
+			const playlistPromises: Promise<Playlist>[] = metasToFetch.map(async (pm: PlaylistMeta) => ({
+				name: pm.name,
+				link: pm.spotifyLink,
+				tracks: await getTracks(accessToken!, pm.apiLink),
+			}))
 
-			const playlists: Playlist[] = await Promise.all(playlistPromises);
-			formattedPlaylists.push(...playlists);
+			const playlists: Playlist[] = await Promise.all(playlistPromises)
+			formattedPlaylists.push(...playlists)
 		}
 
 		// fs.writeFileSync(
@@ -75,8 +73,8 @@ export const POST = async (req: Request) => {
 		// 	JSON.stringify(formattedPlaylists, null, '\t')
 		// );
 	} catch (error) {
-		console.error('handler', error);
+		console.error('handler', error)
 	}
 
-	return NextResponse.json(formattedPlaylists);
-};
+	return NextResponse.json(formattedPlaylists)
+}

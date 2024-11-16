@@ -1,25 +1,25 @@
-import clsx from 'clsx';
-import { Fragment } from 'react';
-import { filterText, formatTime } from './Playlists';
+import { Fragment } from 'react'
+import clsx from 'clsx'
+import { filterText, formatTime } from './Playlists'
 
 interface GridCellProps {
-	className?: string;
-	filter: string;
-	text: string;
+	className?: string
+	filter: string
+	text: string
 }
 
 interface Props {
-	displayPlaylists: Playlist[];
-	filter: string;
+	displayPlaylists: Playlist[]
+	filter: string
 }
 
 const GridCell = ({ className, filter, text }: GridCellProps) => {
 	const classes = clsx(className, 'truncate', {
 		'bg-emerald-100 dark:bg-emerald-700': filter.length && filterText(text, filter),
-	});
+	})
 
-	return <p className={classes}>{text}</p>;
-};
+	return <p className={classes}>{text}</p>
+}
 
 const PlaylistsDesktop = ({ displayPlaylists, filter }: Props) => (
 	<div className="hidden w-full gap-x-4 lg:grid">
@@ -46,16 +46,12 @@ const PlaylistsDesktop = ({ displayPlaylists, filter }: Props) => (
 							filter={filter}
 							text={`${track.album.name}${track.album.type !== 'album' ? '*' : ''}`}
 						/>
-						<GridCell
-							className="pr-1"
-							filter={filter}
-							text={formatTime(track.duration)}
-						/>
+						<GridCell className="pr-1" filter={filter} text={formatTime(track.duration)} />
 					</Fragment>
 				))}
 			</Fragment>
 		))}
 	</div>
-);
+)
 
-export default PlaylistsDesktop;
+export default PlaylistsDesktop
