@@ -5,10 +5,6 @@ import { getMostCommonArtists, getPlaylistDurations } from '@/lib/stats'
 import PlaylistsDesktop from './PlaylistsDesktop'
 import PlaylistsMobile from './PlaylistsMobile'
 
-interface Props {
-	playlists: Playlist[]
-}
-
 export const filterText = (text: string, filter: string): Boolean =>
 	text.toLowerCase().includes(filter.toLowerCase())
 
@@ -24,7 +20,7 @@ export const formatTime = (duration: number): string => {
 	return `${mm}:${ss}`
 }
 
-const Playlists = ({ playlists }: Props): JSX.Element => {
+const Playlists = ({ playlists }: { playlists: Playlist[] }): JSX.Element => {
 	const [displayPlaylists, setDisplayPlaylists] = useState<Playlist[]>([])
 	const [showAlbums, setShowAlbums] = useState(false)
 	const [filter, setFilter] = useState('')
