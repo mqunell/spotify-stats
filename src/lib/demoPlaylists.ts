@@ -366,26 +366,6 @@ const demoPlaylists: Playlist[] = [
 				},
 			},
 			{
-				name: 'NERVOUS',
-				duration: 246463,
-				link: 'https://open.spotify.com/track/1Oi9XgOIpxhFve8jtEitjK',
-				artists: [
-					{
-						name: 'While She Sleeps',
-						link: 'https://open.spotify.com/artist/38LdIuxB548zgHoEY2AN7a',
-					},
-					{
-						name: 'Simon Neil',
-						link: 'https://open.spotify.com/artist/1bacSIxMGJgKSpuzxRXpiz',
-					},
-				],
-				album: {
-					name: 'SLEEPS SOCIETY',
-					link: 'https://open.spotify.com/album/0wotrj0XrHFh7x2FVvsuA1',
-					type: 'album',
-				},
-			},
-			{
 				name: 'Knives',
 				duration: 256068,
 				link: 'https://open.spotify.com/track/0A04MG489D3uGPYpNcjniU',

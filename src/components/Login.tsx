@@ -5,8 +5,8 @@ import Playlists from './Playlists'
 const Login = () => (
 	<>
 		<section className="grid h-screen w-full place-items-center">
-			<div className="flex flex-col items-center rounded-lg border px-20 py-12 shadow">
-				<h1 className="text-xl">View playlists and statistics</h1>
+			<div className="flex w-full max-w-screen-sm flex-col items-center rounded-lg border p-12 shadow">
+				<h1 className="text-xl">View playlists and stats</h1>
 
 				<Link
 					href="/api/auth"
@@ -18,7 +18,9 @@ const Login = () => (
 				<p className="text-sm">Scroll down for demo ⬇️</p>
 			</div>
 		</section>
-		<Playlists playlists={demoPlaylists} />
+		<div className="min-h-screen w-full">
+			<Playlists playlists={demoPlaylists} />
+		</div>
 	</>
 )
 
