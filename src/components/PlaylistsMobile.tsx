@@ -11,7 +11,12 @@ const PlaylistsMobile = ({ displayPlaylists, showAlbums }: Props) => (
 			<div key={playlist.link}>
 				{/* Title */}
 				<div className="flex justify-center rounded bg-slate-100 py-1 dark:bg-slate-600">
-					<a href={playlist.link} className="text-lg hover:text-blue-400 dark:text-slate-100">
+					<a
+						href={playlist.link}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-lg hover:text-blue-400 dark:text-slate-100"
+					>
 						{playlist.name}
 					</a>
 				</div>

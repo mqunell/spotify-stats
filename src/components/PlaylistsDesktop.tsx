@@ -30,7 +30,12 @@ const PlaylistsDesktop = ({ displayPlaylists, filter }: Props) => (
 		{displayPlaylists.map((playlist: Playlist) => (
 			<Fragment key={playlist.link}>
 				<div className="col-span-4 flex justify-center rounded bg-slate-100 py-1 dark:bg-slate-600">
-					<a href={playlist.link} className="text-lg hover:text-blue-400">
+					<a
+						href={playlist.link}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-lg hover:text-blue-400"
+					>
 						{playlist.name}
 					</a>
 				</div>
