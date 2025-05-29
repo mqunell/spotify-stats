@@ -22,9 +22,7 @@ export const POST = async (req: Request) => {
 		// Playlists additional requests
 		while (playlistsRes.data.next) {
 			playlistsRes = await axios.get<ApiPlaylistsMeta>(playlistsRes.data.next, axiosConfig)
-
-			// Skip [0] - it's a duplicate of the previous request's [items.length - 1]
-			apiPlaylists.push(...playlistsRes.data.items.slice(1))
+			apiPlaylists.push(...playlistsRes.data.items)
 		}
 
 		const playlistMetas: PlaylistMeta[] = apiPlaylists

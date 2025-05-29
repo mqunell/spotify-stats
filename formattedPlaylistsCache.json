@@ -2382,7 +2382,7 @@
 				"link": "https://open.spotify.com/track/7ggkrd2AVTFmC1KwJrGG2K",
 				"artists": [
 					{
-						"name": "The Dead Rabbitts",
+						"name": "Dead Rabbitts",
 						"link": "https://open.spotify.com/artist/7JVShmAauuaq861DoM5rP6"
 					}
 				],
@@ -7648,7 +7648,7 @@
 			},
 			{
 				"name": "Ghost Of Me",
-				"duration": 231428,
+				"duration": 231426,
 				"link": "https://open.spotify.com/track/25Yfk4XBeglz1QoXhDqJ2w",
 				"artists": [
 					{
@@ -7938,6 +7938,618 @@
 					"name": "20/20",
 					"link": "https://open.spotify.com/album/7ENSolPrjCvv0U2QMHMJeJ",
 					"type": "album"
+				}
+			}
+		]
+	},
+	{
+		"name": "2024.1",
+		"link": "https://open.spotify.com/playlist/6qlG6Rdr8ee6arpxYOjNc4",
+		"tracks": [
+			{
+				"name": "Kool-Aid",
+				"duration": 228470,
+				"link": "https://open.spotify.com/track/0hpWmAB3L0OJ3VBeMkOQUu",
+				"artists": [
+					{
+						"name": "Bring Me The Horizon",
+						"link": "https://open.spotify.com/artist/1Ffb6ejR6Fe5IamqA5oRUF"
+					}
+				],
+				"album": {
+					"name": "POST HUMAN: NeX GEn",
+					"link": "https://open.spotify.com/album/1k7OXnGQPV4zF3seDwRroD",
+					"type": "album"
+				}
+			},
+			{
+				"name": "The Void",
+				"duration": 220765,
+				"link": "https://open.spotify.com/track/5BD1siRxfJPetcpIo5lvil",
+				"artists": [
+					{
+						"name": "Spiritbox",
+						"link": "https://open.spotify.com/artist/4MzJMcHQBl9SIYSjwWn8QW"
+					}
+				],
+				"album": {
+					"name": "The Fear of Fear",
+					"link": "https://open.spotify.com/album/3UCGVgftlIKV8uOB92cqkk",
+					"type": "single"
+				}
+			},
+			{
+				"name": "The Love You Want",
+				"duration": 263320,
+				"link": "https://open.spotify.com/track/4lVVewXw4g8hB7sldQyJiL",
+				"artists": [
+					{
+						"name": "Sleep Token",
+						"link": "https://open.spotify.com/artist/2n2RSaZqBuUUukhbLlpnE6"
+					}
+				],
+				"album": {
+					"name": "This Place Will Become Your Tomb",
+					"link": "https://open.spotify.com/album/4SD2UxRO9OgeSCQK0PN7cC",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Sunshine!",
+				"duration": 198107,
+				"link": "https://open.spotify.com/track/75jOZla67WCSH24GjJrq5r",
+				"artists": [
+					{
+						"name": "Beartooth",
+						"link": "https://open.spotify.com/artist/6vwjIs0tbIiseJMR3pqwiL"
+					}
+				],
+				"album": {
+					"name": "The Surface",
+					"link": "https://open.spotify.com/album/5WmbnLQhy8ndx8S7puEolG",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Seeing Red",
+				"duration": 220575,
+				"link": "https://open.spotify.com/track/65qBr6ToDUjTD1RiE1H4Gl",
+				"artists": [
+					{
+						"name": "Architects",
+						"link": "https://open.spotify.com/artist/3ZztVuWxHzNpl0THurTFCv"
+					}
+				],
+				"album": {
+					"name": "The Sky, The Earth & All Between",
+					"link": "https://open.spotify.com/album/2W82VyyIFAXigJEiLm5TT1",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Path To Your Grave",
+				"duration": 232142,
+				"link": "https://open.spotify.com/track/3qd1f4bxhR8GOs8XCGPUZV",
+				"artists": [
+					{
+						"name": "Dying Wish",
+						"link": "https://open.spotify.com/artist/4igS2MSwOIf3F9YeL929IO"
+					}
+				],
+				"album": {
+					"name": "Symptoms of Survival",
+					"link": "https://open.spotify.com/album/5BO87WU4XaRXEU2Uxrg2le",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Sleepless Deathbed",
+				"duration": 238000,
+				"link": "https://open.spotify.com/track/6TyD1Z2xXowZQW2cV4kBkJ",
+				"artists": [
+					{
+						"name": "Invent Animate",
+						"link": "https://open.spotify.com/artist/3ALVPmg5sZexSVD2m9atEt"
+					}
+				],
+				"album": {
+					"name": "Heavener (Definitive)",
+					"link": "https://open.spotify.com/album/7sn7Atw9Z4Bgnm99LE02yU",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Keeping Secrets",
+				"duration": 257798,
+				"link": "https://open.spotify.com/track/23ZfzJ2uI17JXeZUJNgC6e",
+				"artists": [
+					{
+						"name": "Fit For A King",
+						"link": "https://open.spotify.com/artist/0OgdRTPItr9dw4XYp4JJUx"
+					}
+				],
+				"album": {
+					"name": "Keeping Secrets",
+					"link": "https://open.spotify.com/album/2eo6DsHwKME76sBskLyXAO",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Gloom",
+				"duration": 244500,
+				"link": "https://open.spotify.com/track/3TyFeYQxgdWdl9EQMIMTs6",
+				"artists": [
+					{
+						"name": "Our Vices",
+						"link": "https://open.spotify.com/artist/4cCGHio55MMEg4KrTZC29d"
+					}
+				],
+				"album": {
+					"name": "Gloom",
+					"link": "https://open.spotify.com/album/6NHpC1hxxr5qhCIvhEO0cP",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Reasons",
+				"duration": 240000,
+				"link": "https://open.spotify.com/track/5cqOmjN3auHvZlhbebzKQx",
+				"artists": [
+					{
+						"name": "Excision",
+						"link": "https://open.spotify.com/artist/5FKchcZpQOkqFvXBj1aCvb"
+					},
+					{
+						"name": "Wooli",
+						"link": "https://open.spotify.com/artist/1Uyqa2sdHm1bL5JK4IC4zc"
+					},
+					{
+						"name": "The Devil Wears Prada",
+						"link": "https://open.spotify.com/artist/0NbQe5CNgh4YApOCDuHSjb"
+					}
+				],
+				"album": {
+					"name": "Reasons",
+					"link": "https://open.spotify.com/album/3WzQWDcaxWTvBMGnZP5u0v",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Run Away",
+				"duration": 176000,
+				"link": "https://open.spotify.com/track/7m7yPZ1D51mbKuqAJFsmTf",
+				"artists": [
+					{
+						"name": "Sunstroke Project",
+						"link": "https://open.spotify.com/artist/3c55dzx6W0ZFs0frtEgIsm"
+					},
+					{
+						"name": "Olia Tira",
+						"link": "https://open.spotify.com/artist/3RF9EsRlTws6jz6yYkDxsJ"
+					}
+				],
+				"album": {
+					"name": "Run Away",
+					"link": "https://open.spotify.com/album/6unjWGquIo6FxnXlJrEAqf",
+					"type": "single"
+				}
+			}
+		]
+	},
+	{
+		"name": "2024.2",
+		"link": "https://open.spotify.com/playlist/5LowrMLMiiaHo8oZlbFcOk",
+		"tracks": [
+			{
+				"name": "DArkSide",
+				"duration": 165357,
+				"link": "https://open.spotify.com/track/7mczLeiFeYKRb7vtiPjuMb",
+				"artists": [
+					{
+						"name": "Bring Me The Horizon",
+						"link": "https://open.spotify.com/artist/1Ffb6ejR6Fe5IamqA5oRUF"
+					}
+				],
+				"album": {
+					"name": "POST HUMAN: NeX GEn",
+					"link": "https://open.spotify.com/album/1k7OXnGQPV4zF3seDwRroD",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Ultraviolet",
+				"duration": 248888,
+				"link": "https://open.spotify.com/track/5AYeGLu0KlyZUe6bS2tgdh",
+				"artists": [
+					{
+						"name": "Spiritbox",
+						"link": "https://open.spotify.com/artist/4MzJMcHQBl9SIYSjwWn8QW"
+					}
+				],
+				"album": {
+					"name": "The Fear of Fear",
+					"link": "https://open.spotify.com/album/3UCGVgftlIKV8uOB92cqkk",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Epitaph",
+				"duration": 217026,
+				"link": "https://open.spotify.com/track/2xWvMqVivddrQiC7kAvnnH",
+				"artists": [
+					{
+						"name": "Make Them Suffer",
+						"link": "https://open.spotify.com/artist/0FZcPgWI3BsFQl4rOAGSHT"
+					}
+				],
+				"album": {
+					"name": "Make Them Suffer",
+					"link": "https://open.spotify.com/album/4IlFCPiC0DlO0wip7BjQwr",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Curse",
+				"duration": 181134,
+				"link": "https://open.spotify.com/track/6DLaYITCfzaNEAj0ZyGRad",
+				"artists": [
+					{
+						"name": "Architects",
+						"link": "https://open.spotify.com/artist/3ZztVuWxHzNpl0THurTFCv"
+					}
+				],
+				"album": {
+					"name": "The Sky, The Earth & All Between",
+					"link": "https://open.spotify.com/album/2W82VyyIFAXigJEiLm5TT1",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Meat & Greet",
+				"duration": 210559,
+				"link": "https://open.spotify.com/track/4DUDclz23qWzRVNe4a8zeK",
+				"artists": [
+					{
+						"name": "Ice Nine Kills",
+						"link": "https://open.spotify.com/artist/52qKfVcIV4GS8A8Vay2xtt"
+					}
+				],
+				"album": {
+					"name": "Welcome To Horrorwood: Under Fire",
+					"link": "https://open.spotify.com/album/02G9Jo5F2exoSiLml9wyQj",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Wolf (feat. John Cooper of Skillet)",
+				"duration": 198750,
+				"link": "https://open.spotify.com/track/2TotmUJiZqzDh7OMjD7zGr",
+				"artists": [
+					{
+						"name": "Saint Asonia",
+						"link": "https://open.spotify.com/artist/6Fwq3TDWpMhcL1KTKVQiI8"
+					},
+					{
+						"name": "Skillet",
+						"link": "https://open.spotify.com/artist/49bzE5vRBRIota4qeHtQM8"
+					}
+				],
+				"album": {
+					"name": "Wolf (feat. John Cooper of Skillet)",
+					"link": "https://open.spotify.com/album/6q3tBwBS5uMSeeWD3JRhDZ",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Ascensionism",
+				"duration": 428713,
+				"link": "https://open.spotify.com/track/2Z1eWq9VOXkCzUmcU6uoNe",
+				"artists": [
+					{
+						"name": "Sleep Token",
+						"link": "https://open.spotify.com/artist/2n2RSaZqBuUUukhbLlpnE6"
+					}
+				],
+				"album": {
+					"name": "Take Me Back To Eden",
+					"link": "https://open.spotify.com/album/1gjugH97doz3HktiEjx2vY",
+					"type": "album"
+				}
+			}
+		]
+	},
+	{
+		"name": "2024.3",
+		"link": "https://open.spotify.com/playlist/2hyfoJ8NfvQfpehAtruKbq",
+		"tracks": [
+			{
+				"name": "Living In Tragedy",
+				"duration": 243670,
+				"link": "https://open.spotify.com/track/4gYTRtoYacPdp0sxRm03sQ",
+				"artists": [
+					{
+						"name": "Currents",
+						"link": "https://open.spotify.com/artist/5pqvAI85RMxL9K0xHvSwGu"
+					}
+				],
+				"album": {
+					"name": "The Death We Seek",
+					"link": "https://open.spotify.com/album/0llAadNufIDvVRzWfSxQxC",
+					"type": "album"
+				}
+			},
+			{
+				"name": "TECHNIUM",
+				"duration": 184994,
+				"link": "https://open.spotify.com/track/5Pk2Fy0i0BuzfGaCFpB9DB",
+				"artists": [
+					{
+						"name": "Fit For A King",
+						"link": "https://open.spotify.com/artist/0OgdRTPItr9dw4XYp4JJUx"
+					},
+					{
+						"name": "The Plot In You",
+						"link": "https://open.spotify.com/artist/1cJ5tVoeAEFcZBAwSZ0CtF"
+					}
+				],
+				"album": {
+					"name": "TECHNIUM",
+					"link": "https://open.spotify.com/album/50pfFA6Pb0ZNn97fZy07SX",
+					"type": "single"
+				}
+			},
+			{
+				"name": "False Meridian",
+				"duration": 300253,
+				"link": "https://open.spotify.com/track/2ZdmCndipDqKZSWpENsgXk",
+				"artists": [
+					{
+						"name": "Invent Animate",
+						"link": "https://open.spotify.com/artist/3ALVPmg5sZexSVD2m9atEt"
+					}
+				],
+				"album": {
+					"name": "Heavener (Definitive)",
+					"link": "https://open.spotify.com/album/7sn7Atw9Z4Bgnm99LE02yU",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Nightmare (The Devil)",
+				"duration": 200210,
+				"link": "https://open.spotify.com/track/107zDLC7hpKe2ux2oUHEFM",
+				"artists": [
+					{
+						"name": "Fame on Fire",
+						"link": "https://open.spotify.com/artist/10Z7WzKMeIdNBKexi1YarP"
+					}
+				],
+				"album": {
+					"name": "The Death Card",
+					"link": "https://open.spotify.com/album/2fcTgvULqmDLlE5nX0GJ5S",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Death Wish",
+				"duration": 145500,
+				"link": "https://open.spotify.com/track/3xQPy8WV7N74njLxi7luqR",
+				"artists": [
+					{
+						"name": "Royale Lynn",
+						"link": "https://open.spotify.com/artist/7dvWKl1x7kPPPiDDBibQaK"
+					},
+					{
+						"name": "Danny Worsnop",
+						"link": "https://open.spotify.com/artist/3FffC7t4yWwOUr0S5fFbkW"
+					}
+				],
+				"album": {
+					"name": "Death Wish",
+					"link": "https://open.spotify.com/album/194QdyBM3DKbWulKl4zqBt",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Sun Darts",
+				"duration": 191568,
+				"link": "https://open.spotify.com/track/3WKuLn1az39b35uo6RxBdQ",
+				"artists": [
+					{
+						"name": "Letterkenny",
+						"link": "https://open.spotify.com/artist/1aF0SkybmOlSAPpNo2lVvm"
+					}
+				],
+				"album": {
+					"name": "Sun Darts",
+					"link": "https://open.spotify.com/album/3es7LW1GBi2aDApXzfWWAH",
+					"type": "single"
+				}
+			}
+		]
+	},
+	{
+		"name": "2024.4",
+		"link": "https://open.spotify.com/playlist/5RFnA82w9h3fC7K91Fq9Av",
+		"tracks": [
+			{
+				"name": "No Tomorrow (The Death Card)",
+				"duration": 208061,
+				"link": "https://open.spotify.com/track/1JEhdiJcVL56isQwfSdCu8",
+				"artists": [
+					{
+						"name": "Fame on Fire",
+						"link": "https://open.spotify.com/artist/10Z7WzKMeIdNBKexi1YarP"
+					}
+				],
+				"album": {
+					"name": "The Death Card",
+					"link": "https://open.spotify.com/album/2fcTgvULqmDLlE5nX0GJ5S",
+					"type": "album"
+				}
+			},
+			{
+				"name": "THE DAM",
+				"duration": 240725,
+				"link": "https://open.spotify.com/track/4zD1UlSWZ1YvG9pJmjVXZ8",
+				"artists": [
+					{
+						"name": "Daughtry",
+						"link": "https://open.spotify.com/artist/5P5FTygHyx2G57oszR3Wot"
+					}
+				],
+				"album": {
+					"name": "SHOCK TO THE SYSTEM (PART ONE)",
+					"link": "https://open.spotify.com/album/3Phx7bXkyoGS0O39giHiXS",
+					"type": "single"
+				}
+			},
+			{
+				"name": "The Emptiness Machine",
+				"duration": 190427,
+				"link": "https://open.spotify.com/track/2PnlsTsOTLE5jnBnNe2K0A",
+				"artists": [
+					{
+						"name": "Linkin Park",
+						"link": "https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz"
+					}
+				],
+				"album": {
+					"name": "The Emptiness Machine",
+					"link": "https://open.spotify.com/album/6W0Gabv5f3ugnckc6YgfJQ",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Awaken",
+				"duration": 218002,
+				"link": "https://open.spotify.com/track/7hr0WyhqQxrK3SQ9ZQxjTu",
+				"artists": [
+					{
+						"name": "Breaking Benjamin",
+						"link": "https://open.spotify.com/artist/5BtHciL0e0zOP7prIHn3pP"
+					}
+				],
+				"album": {
+					"name": "Awaken",
+					"link": "https://open.spotify.com/album/1vmuokjeEWukuNChZWHC5Y",
+					"type": "single"
+				}
+			},
+			{
+				"name": "A Dozen Roses",
+				"duration": 157085,
+				"link": "https://open.spotify.com/track/7AMelgIvI1tSFC1QUQPl5Q",
+				"artists": [
+					{
+						"name": "Amira Elfeky",
+						"link": "https://open.spotify.com/artist/6Z4kwq0LOaYQW2CqudoOIk"
+					}
+				],
+				"album": {
+					"name": "Skin to Skin",
+					"link": "https://open.spotify.com/album/5PFVeA1sXSeyPVvZSupNd8",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Perfect Soul",
+				"duration": 239640,
+				"link": "https://open.spotify.com/track/7CoiOXsrfI58wUZBt45HgL",
+				"artists": [
+					{
+						"name": "Spiritbox",
+						"link": "https://open.spotify.com/artist/4MzJMcHQBl9SIYSjwWn8QW"
+					}
+				],
+				"album": {
+					"name": "Tsunami Sea",
+					"link": "https://open.spotify.com/album/79sg58t1vRpcxudpP9uPtg",
+					"type": "album"
+				}
+			},
+			{
+				"name": "new way out",
+				"duration": 202909,
+				"link": "https://open.spotify.com/track/78GAQZUGa11v6f8ozhGqbM",
+				"artists": [
+					{
+						"name": "Poppy",
+						"link": "https://open.spotify.com/artist/5mlbvTfWUOfDrUIK6dkNzv"
+					}
+				],
+				"album": {
+					"name": "Negative Spaces",
+					"link": "https://open.spotify.com/album/0YIOpXQvcbiDNPusSqi5Ew",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Reaching Out",
+				"duration": 261428,
+				"link": "https://open.spotify.com/track/5nKJ7tCsPhlnQpwpyfZJG4",
+				"artists": [
+					{
+						"name": "Fit For A King",
+						"link": "https://open.spotify.com/artist/0OgdRTPItr9dw4XYp4JJUx"
+					}
+				],
+				"album": {
+					"name": "The Hell We Create",
+					"link": "https://open.spotify.com/album/6eC2kXPm1Nrb6kbtuPpc4D",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Red Horizon",
+				"duration": 304493,
+				"link": "https://open.spotify.com/track/7Hrr1Setc3WFBICOm5kEgn",
+				"artists": [
+					{
+						"name": "Fit For An Autopsy",
+						"link": "https://open.spotify.com/artist/0qJpY7K8p7g6sacvaGNt6i"
+					}
+				],
+				"album": {
+					"name": "The Nothing That Is",
+					"link": "https://open.spotify.com/album/4ZYfWm41dWgewV1yMV4zmU",
+					"type": "album"
+				}
+			},
+			{
+				"name": "Hollaback Girl (In the style of Bring Me the Horizon)",
+				"duration": 178225,
+				"link": "https://open.spotify.com/track/131AL6WJzsDqxdD4uRMxLl",
+				"artists": [
+					{
+						"name": "Anthony Vincent",
+						"link": "https://open.spotify.com/artist/5f18KeztDInZIN7cRyRdp6"
+					},
+					{
+						"name": "Todd Barriage",
+						"link": "https://open.spotify.com/artist/5JvB18ikUg21Uv5MrUBagY"
+					}
+				],
+				"album": {
+					"name": "Hollaback Girl (In the style of Bring Me the Horizon)",
+					"link": "https://open.spotify.com/album/0MoTl1gTiEQROTpUTY0xLY",
+					"type": "single"
+				}
+			},
+			{
+				"name": "Sushi Glory Hole",
+				"duration": 142277,
+				"link": "https://open.spotify.com/track/53XgmXQW5eYDdeTUHd9ueC",
+				"artists": [
+					{
+						"name": "The Lonely Island",
+						"link": "https://open.spotify.com/artist/1f5GqyOPo0CkotzzRwviBu"
+					}
+				],
+				"album": {
+					"name": "Sushi Glory Hole",
+					"link": "https://open.spotify.com/album/5R7A1l3W61lzi3dgtJag6N",
+					"type": "single"
 				}
 			}
 		]
